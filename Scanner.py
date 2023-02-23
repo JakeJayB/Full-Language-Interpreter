@@ -53,11 +53,12 @@ def ArgParser():
 
 def keywordIndentifier(token):
     #TODO: implementation of keyword Indentifier
-    
-    # if token.value == keyword
-        # token.type == TokenType.KEYWORD
-    #return new Token
-    pass
+    keyWords = {"if", "then", "else", "endif", "while", "do", "endwhile", "skip"}
+
+    if token.value in keyWords:
+        token.type = TokenType.KEYWORD
+
+    return token
 
 def getTokens(line):
     if line.strip() == "":
@@ -94,6 +95,7 @@ def getTokens(line):
                 i += 1
             
             #TODO: send identifier to keywordIdentifier() to check for keyword
+            newToken = keywordIndentifier(newToken)
             
             # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
@@ -102,6 +104,7 @@ def getTokens(line):
             newToken.type = TokenType.SYMBOL
             newToken.value = str(line[i])
             i += 1
+
             if (i < len(line) and line[i] == "=" and line[i-1] == ":"):
                 newToken.value += str(line[i])
                 i += 1

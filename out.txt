@@ -1,103 +1,39 @@
-Line: #34 + 89 - x * y23
-ERROR READING '#'
-34 : NUMBER
-+ : SYMBOL
-89 : NUMBER
-- : SYMBOL
-x : INDENTIFIER
-* : SYMBOL
-y23 : INDENTIFIER
-
-Line: cxo6y / 67z23 * 56& 34 * x ^ 
-cxo6y : INDENTIFIER
-/ : SYMBOL
-67 : NUMBER
-z23 : INDENTIFIER
-* : SYMBOL
-56 : NUMBER
-ERROR READING '&'
-34 : NUMBER
-* : SYMBOL
-x : INDENTIFIER
-ERROR READING '^'
-
-Line: 2 + x
-2 : NUMBER
-+ : SYMBOL
-x : INDENTIFIER
-
-Line: :
-: : SYMBOL
-
-Line: :=
+Line: x32 := 36 - y;
+x32 : INDENTIFIER
 := : SYMBOL
-ERROR READING '='
-
-Line: #34 + 89 - x * y23
-ERROR READING '#'
-34 : NUMBER
-+ : SYMBOL
-89 : NUMBER
+36 : NUMBER
 - : SYMBOL
-x : INDENTIFIER
-* : SYMBOL
-y23 : INDENTIFIER
+y : INDENTIFIER
+; : SYMBOL
 
-Line: cxo6y / 67z23 * 56& 34 * x ^ 
-cxo6y : INDENTIFIER
-/ : SYMBOL
-67 : NUMBER
-z23 : INDENTIFIER
-* : SYMBOL
-56 : NUMBER
-ERROR READING '&'
-34 : NUMBER
-* : SYMBOL
-x : INDENTIFIER
-ERROR READING '^'
+Line: if y then
+if : KEYWORD
+y : INDENTIFIER
+then : KEYWORD
 
-Line: 2 + x
-2 : NUMBER
-+ : SYMBOL
-x : INDENTIFIER
-
-Line: :
-: : SYMBOL
-
-Line: :=
+Line:     x32 :=0; skip
+x32 : INDENTIFIER
 := : SYMBOL
+0 : NUMBER
+; : SYMBOL
+skip : KEYWORD
 
-Line: #34 + 89 - x * y23
-ERROR READING '#'
-34 : NUMBER
-+ : SYMBOL
-89 : NUMBER
-- : SYMBOL
-x : INDENTIFIER
-* : SYMBOL
-y23 : INDENTIFIER
+Line: else
+else : KEYWORD
 
-Line: cxo6y / 67z23 * 56& 34 * x ^ 
-cxo6y : INDENTIFIER
-/ : SYMBOL
-67 : NUMBER
-z23 : INDENTIFIER
-* : SYMBOL
-56 : NUMBER
-ERROR READING '&'
-34 : NUMBER
-* : SYMBOL
-x : INDENTIFIER
-ERROR READING '^'
-
-Line: 2 + x
-2 : NUMBER
-+ : SYMBOL
-x : INDENTIFIER
-
-Line: :
-ERROR READING ':'
-
-Line: :=
+Line:     whiley := 12^2;
+whiley : INDENTIFIER
 := : SYMBOL
+12 : NUMBER
+ERROR READING '^'
+2 : NUMBER
+; : SYMBOL
+
+Line:     z:= x32
+z : INDENTIFIER
+:= : SYMBOL
+x32 : INDENTIFIER
+
+Line: endif
+endif : KEYWORD
 

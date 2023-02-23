@@ -1,5 +1,7 @@
-#34 + 89 - x * y23
-cxo6y / 67z23 * 56& 34 * x ^ 
-2 + x
-:
-:=
+x32 := 36 - y;
+if y then
+    x32 :=0; skip
+else
+    whiley := 12^2;
+    z:= x32
+endif
