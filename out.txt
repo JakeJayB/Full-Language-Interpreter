@@ -26,3 +26,78 @@ Line: 2 + x
 + : SYMBOL
 x : INDENTIFIER
 
+Line: :
+: : SYMBOL
+
+Line: :=
+:= : SYMBOL
+ERROR READING '='
+
+Line: #34 + 89 - x * y23
+ERROR READING '#'
+34 : NUMBER
++ : SYMBOL
+89 : NUMBER
+- : SYMBOL
+x : INDENTIFIER
+* : SYMBOL
+y23 : INDENTIFIER
+
+Line: cxo6y / 67z23 * 56& 34 * x ^ 
+cxo6y : INDENTIFIER
+/ : SYMBOL
+67 : NUMBER
+z23 : INDENTIFIER
+* : SYMBOL
+56 : NUMBER
+ERROR READING '&'
+34 : NUMBER
+* : SYMBOL
+x : INDENTIFIER
+ERROR READING '^'
+
+Line: 2 + x
+2 : NUMBER
++ : SYMBOL
+x : INDENTIFIER
+
+Line: :
+: : SYMBOL
+
+Line: :=
+:= : SYMBOL
+
+Line: #34 + 89 - x * y23
+ERROR READING '#'
+34 : NUMBER
++ : SYMBOL
+89 : NUMBER
+- : SYMBOL
+x : INDENTIFIER
+* : SYMBOL
+y23 : INDENTIFIER
+
+Line: cxo6y / 67z23 * 56& 34 * x ^ 
+cxo6y : INDENTIFIER
+/ : SYMBOL
+67 : NUMBER
+z23 : INDENTIFIER
+* : SYMBOL
+56 : NUMBER
+ERROR READING '&'
+34 : NUMBER
+* : SYMBOL
+x : INDENTIFIER
+ERROR READING '^'
+
+Line: 2 + x
+2 : NUMBER
++ : SYMBOL
+x : INDENTIFIER
+
+Line: :
+ERROR READING ':'
+
+Line: :=
+:= : SYMBOL
+

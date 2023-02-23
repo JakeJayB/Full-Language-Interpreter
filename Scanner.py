@@ -98,10 +98,16 @@ def getTokens(line):
             # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
             continue
-        elif(re.match(r"[\+|\-|\*|/|\(|\)]", line[i]) != None): # Symbols
+        elif(re.match(r"[\+|\-|\*|/|\(|\)|;|:]", line[i]) != None): # Symbols
             newToken.type = TokenType.SYMBOL
             newToken.value = str(line[i])
             i += 1
+            if (i < len(line) and line[i] == "=" and line[i-1] == ":"):
+                newToken.value += str(line[i])
+                i += 1
+            elif (line[i-1] == ":"):
+                newToken.type = TokenType.ERROR
+
             # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
             continue
