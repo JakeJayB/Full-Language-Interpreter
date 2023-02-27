@@ -1,6 +1,6 @@
 """ Jacob Bejarano,  Wesly Barayuga
-    Project Phase 1.1 - Scanner for Expressions
-    02/10/23
+    Project Phase 1.2 - Scanner for Expressions
+    02/26/23
 """
 
 from enum import Enum
