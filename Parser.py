@@ -1,4 +1,5 @@
 import argparse
+import Scanner
 
 class Node():
     def __init__(self, value) -> None:
@@ -18,6 +19,9 @@ class Tree():
         root.right = right
         return root
         
+# i is our global iterator for each token list
+i = 0   
+
 def printTree(node, whitespace):
     if node == None: return
     print(whitespace + str(node.value))
@@ -25,57 +29,93 @@ def printTree(node, whitespace):
     printTree(node.middle, whitespace+'\t')
     printTree(node.right, whitespace+'\t')
 
-def consumeToken():
-    print("")
-    #temp
+def raiseError():
+    pass
+
+def consumeToken(tokens):
+    global i
+    # i= i+1
+    if i >= len(tokens): pass
+    i+=1
+
+
+
+# 3 * (5 + 2 / x - 1)
 
 def parseExpr(tokens):
     if tokens == None: return
 
-    for i in tokens:
-        tree = parseTerm(currToken, tokens)
-        while tokens[i+1] == '+':
-            consumeToken() #temp
-            tree = Tree.MakeSubTree('+', tree, None ,parseTerm(i, tokens))
+    tree = parseTerm(tokens)
+    while tokens[i].value == '+':
+        consumeToken() 
+        tree = Tree.MakeSubTree('+', tree, None, parseTerm(tokens))
 
     return tree
 
-def parseTerm(i, tokens):
-    for i in tokens:
-        tree = parseFactor(i, tokens)
-        while tokens[i+1] == '-':
-            consumeToken()
-            tree = Tree.MakeSubTree('-', tree, None, parseFactor(i, tokens))
-
-    return tree
-
-def parseFactor(i, tokens):
-    for i in tokens:
-        tree = parsePiece(i, tokens)
-        while tokens[i+1] == '/':
-            consumeToken()
-            tree = Tree.MakeSubTree('-', tree, None, parsePiece(i, tokens))
-
-    return tree
-
-def parsePiece(i, tokens):
-    for i in tokens:
-        tree = parseElement(i, tokens)
-        while tokens[i+1] == '*':
-            consumeToken()
-            tree = Tree.MakeSubTree('-', tree, None, parseElement(i, tokens))
-
-    return tree
-
-def parseElement(i, tokens):
-    if tokens[i+1] == '(':
+def parseTerm(tokens):
+    tree = parseFactor(tokens)
+    while tokens[i].value == '-':
         consumeToken()
-        tree = parseExpr(tokens)
+        tree = Tree.MakeSubTree('-', tree, None, parseFactor(tokens))
+
+    return tree
+
+# 3 * (5 + 2 / x - 1)
+
+def parseFactor(tokens):
+    tree = parsePiece(tokens)
+    while tokens[i].value == '/':
+        consumeToken()
+        tree = Tree.MakeSubTree('-', tree, None, parsePiece(tokens))
+
+    return tree
+
+def parsePiece(tokens):
+    tree = parseElement(tokens)
+    while tokens[i].value == '*':   #[token1(type,value), token2, token3]
+        consumeToken()
+        tree = Tree.MakeSubTree('-', tree, None, parseElement(tokens))
+
+    return tree
+
+def parseElement(tokens):
+    if tokens[i].value == '(':
+        consumeToken()
+        tree = parseExpr(tokens) 
+        if tokens[i].value == ')':
+            consumeToken()
+            return tree
+        else:
+            raiseError()
+
+    elif tokens[i].type == Scanner.TokenType.NUMBER:
+        consumeToken()
+        return Tree.MakeSubTree(tokens[i].value, None, None, None)
+    elif tokens[i].type == Scanner.TokenType.INDENTIFIER:
+        consumeToken()
+        return Tree.MakeSubTree(tokens[i].value, None, None, None)
     else:
-        return #leaf node value
+        print("ERROR")
 
+# 3 * (5 + 2 / x - 1)
 
+def main(input, output):
+    tokens = list()
 
+    for line in input:
+        tokens = Scanner.getTokens(line)
+        output.write("Line: " + line.strip('\n') + "\n")
+        output.write("Tokens:\n")
+        
+        for token in tokens:
+            output.write(f"{token.value} : {Scanner.TokenType.toString(token.type)}\n")
+        output.write("\n")
+        
+        parseExpr(tokens)
+
+            
+    input.close()
+    output.close()
     
 def ArgParser():
     """
