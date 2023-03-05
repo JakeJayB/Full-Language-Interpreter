@@ -102,12 +102,12 @@ def main(input, output):
         tokens = Scanner.getTokens(line)
         # print(str(tokens))
         
-        # output.write("Line: " + line.strip('\n') + "\n")
-        # output.write("Tokens:\n")
+        output.write("Line: " + line.strip('\n') + "\n\n")
+        output.write("Tokens:\n")
         
         for token in tokens:
             output.write(f"{token.value} : {Scanner.TokenType.toString(token.type)}\n")
-        output.write("\n")
+        output.write("\n\n")
         
         root = parseExpr(tokens)
         printTree(root)
