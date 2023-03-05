@@ -1,0 +1,36 @@
+1 : NUMBER
++ : SYMBOL
+qq : INDENTIFIER
+- : SYMBOL
+2 : NUMBER
+* : SYMBOL
+4 : NUMBER
++ : SYMBOL
+c4 : INDENTIFIER
+- : SYMBOL
+s : INDENTIFIER
+* : SYMBOL
+2 : NUMBER
+/ : SYMBOL
+4 : NUMBER
++ : SYMBOL
+2 : NUMBER
+
++ : TokenType.SYMBOL
+	+ : TokenType.SYMBOL
+		+ : TokenType.SYMBOL
+			1 : TokenType.NUMBER
+			- : TokenType.SYMBOL
+				qq : TokenType.INDENTIFIER
+				* : TokenType.SYMBOL
+					2 : TokenType.NUMBER
+					4 : TokenType.NUMBER
+		- : TokenType.SYMBOL
+			c4 : TokenType.INDENTIFIER
+			/ : TokenType.SYMBOL
+				* : TokenType.SYMBOL
+					s : TokenType.INDENTIFIER
+					2 : TokenType.NUMBER
+				4 : TokenType.NUMBER
+	2 : TokenType.NUMBER
+

@@ -23,12 +23,12 @@ class Tree():
 # i is our global iterator for each token list
 i = 0   
 
-def printTree(node, whitespace=''):
+def printTree(node, output, whitespace=''):
     if node == None: return
-    print(whitespace + str(node.value) + " : " + str(node.type))
-    printTree(node.left, whitespace+'\t')
-    printTree(node.middle, whitespace+'\t')
-    printTree(node.right, whitespace+'\t')
+    output.write(whitespace + str(node.value) + " : " + str(node.type) + '\n')
+    printTree(node.left, output, whitespace+'\t')
+    printTree(node.middle, output, whitespace+'\t')
+    printTree(node.right, output, whitespace+'\t')
 
 def raiseError():
     print("ERROR")
@@ -36,7 +36,7 @@ def raiseError():
 
 def consumeToken():
     global i
-    i+=1
+    i +=1
 
 # 3 * 5 + 2 / x - 1
 
@@ -110,7 +110,7 @@ def main(input, output):
         output.write("\n")
         
         root = parseExpr(tokens)
-        printTree(root)
+        printTree(root, output)
 
             
     input.close()
@@ -127,11 +127,11 @@ def ArgParser():
     argParser.add_argument("-o", "--output", help="Output File")
     args = argParser.parse_args()
 
-    # input = open(args.input, "r")
-    # output = open(args.output, "a")
+    input = open(args.input, "r")
+    output = open(args.output, "a")
 
-    input = open("input_file.txt", "r")
-    output = open("out.txt", "a")
+    # input = open("input_file.txt", "r")
+    # output = open("out.txt", "a")
     
     main(input, output)
     
