@@ -4,9 +4,8 @@
 """
 
 from enum import Enum
-import argparse
+# import argparse
 import re
-import Parser
 
 class TokenType(Enum):
     NUMBER = 1
@@ -35,21 +34,21 @@ class Token:
        self.value = value  
        
 
-def ArgParser():
-    """
-        Arugment Parser for the arguments passed from command line
+# def ArgParser():
+#     """
+#         Arugment Parser for the arguments passed from command line
         
-        @return: None
-    """
-    argParser = argparse.ArgumentParser()
-    argParser.add_argument("-i", "--input", help="Input File")
-    argParser.add_argument("-o", "--output", help="Output File")
-    args = argParser.parse_args()
+#         @return: None
+#     """
+#     argParser = argparse.ArgumentParser()
+#     argParser.add_argument("-i", "--input", help="Input File")
+#     argParser.add_argument("-o", "--output", help="Output File")
+#     args = argParser.parse_args()
 
-    input = open(args.input, "r")
-    output = open(args.output, "a")
+#     input = open(args.input, "r")
+#     output = open(args.output, "a")
     
-    main(input, output)
+#     main(input, output)
 
 
 def keywordIndentifier(token):
@@ -59,8 +58,6 @@ def keywordIndentifier(token):
         token.type = TokenType.KEYWORD
 
     return token
-
-
 
 def getTokens(line):
     if line.strip() == "":
@@ -141,4 +138,4 @@ def main(input, output):
     output.close()
         
 
-ArgParser()
+# ArgParser()
