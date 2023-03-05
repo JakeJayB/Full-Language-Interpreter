@@ -6,6 +6,7 @@
 from enum import Enum
 import argparse
 import re
+import Parser
 
 class TokenType(Enum):
     NUMBER = 1
@@ -59,10 +60,12 @@ def keywordIndentifier(token):
 
     return token
 
+
+
 def getTokens(line):
     if line.strip() == "":
         return []
-        
+
     res = list()
     i = 0
     while i < len(line):
@@ -119,7 +122,6 @@ def getTokens(line):
             res.append(newToken)
             continue
     return res
-            
 
 def main(input, output):
     tokens = list()
@@ -133,7 +135,7 @@ def main(input, output):
                 continue
             output.write(f"{token.value} : {TokenType.toString(token.type)}\n")
         output.write("\n")
-        
+
             
     input.close()
     output.close()

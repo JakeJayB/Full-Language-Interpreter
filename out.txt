@@ -1,0 +1,39 @@
+Line: x32 := 36 - y;
+x32 : INDENTIFIER
+:= : SYMBOL
+36 : NUMBER
+- : SYMBOL
+y : INDENTIFIER
+; : SYMBOL
+
+Line: if y then
+if : KEYWORD
+y : INDENTIFIER
+then : KEYWORD
+
+Line:     x32 :=0; skip
+x32 : INDENTIFIER
+:= : SYMBOL
+0 : NUMBER
+; : SYMBOL
+skip : KEYWORD
+
+Line: else
+else : KEYWORD
+
+Line:     whiley := 12^2;
+whiley : INDENTIFIER
+:= : SYMBOL
+12 : NUMBER
+ERROR READING '^'
+2 : NUMBER
+; : SYMBOL
+
+Line:     z:= x32
+z : INDENTIFIER
+:= : SYMBOL
+x32 : INDENTIFIER
+
+Line: endif
+endif : KEYWORD
+
