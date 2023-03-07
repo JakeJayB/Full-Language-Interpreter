@@ -1,36 +1,59 @@
-1 : NUMBER
-+ : SYMBOL
-qq : INDENTIFIER
-- : SYMBOL
-2 : NUMBER
+Line: 3 * (5 + 2 / x - 1)
+
+Tokens:
+3 : NUMBER
 * : SYMBOL
-4 : NUMBER
+( : SYMBOL
+5 : NUMBER
 + : SYMBOL
-c4 : INDENTIFIER
+2 : NUMBER
+/ : SYMBOL
+x : INDENTIFIER
 - : SYMBOL
-s : INDENTIFIER
+1 : NUMBER
+) : SYMBOL
+
+* : TokenType.SYMBOL
+	3 : TokenType.NUMBER
+	+ : TokenType.SYMBOL
+		5 : TokenType.NUMBER
+		- : TokenType.SYMBOL
+			/ : TokenType.SYMBOL
+				2 : TokenType.NUMBER
+				x : TokenType.INDENTIFIER
+			1 : TokenType.NUMBER
+
+
+Line: 3 + 2 / x - 1
+
+Tokens:
+3 : NUMBER
++ : SYMBOL
+2 : NUMBER
+/ : SYMBOL
+x : INDENTIFIER
+- : SYMBOL
+1 : NUMBER
+
++ : TokenType.SYMBOL
+	3 : TokenType.NUMBER
+	- : TokenType.SYMBOL
+		/ : TokenType.SYMBOL
+			2 : TokenType.NUMBER
+			x : TokenType.INDENTIFIER
+		1 : TokenType.NUMBER
+
+
+Line: (3 * 2 / x - 1
+
+Tokens:
+( : SYMBOL
+3 : NUMBER
 * : SYMBOL
 2 : NUMBER
 / : SYMBOL
-4 : NUMBER
-+ : SYMBOL
-2 : NUMBER
+x : INDENTIFIER
+- : SYMBOL
+1 : NUMBER
 
-+ : TokenType.SYMBOL
-	+ : TokenType.SYMBOL
-		+ : TokenType.SYMBOL
-			1 : TokenType.NUMBER
-			- : TokenType.SYMBOL
-				qq : TokenType.INDENTIFIER
-				* : TokenType.SYMBOL
-					2 : TokenType.NUMBER
-					4 : TokenType.NUMBER
-		- : TokenType.SYMBOL
-			c4 : TokenType.INDENTIFIER
-			/ : TokenType.SYMBOL
-				* : TokenType.SYMBOL
-					s : TokenType.INDENTIFIER
-					2 : TokenType.NUMBER
-				4 : TokenType.NUMBER
-	2 : TokenType.NUMBER
-
+SyntaxError: Invalid Parsing: MISSING ')'

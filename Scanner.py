@@ -50,6 +50,11 @@ class Token:
     
 #     main(input, output)
 
+def checkTokenValidity(tokens, line, output):
+    for token in tokens:
+        if token.type == TokenType.ERROR: 
+            output.write(f"SyntaxError: Invalid Token at: {line}")
+            quit(0)
 
 def keywordIndentifier(token):
     keyWords = {"if", "then", "else", "endif", "while", "do", "endwhile", "skip"}
@@ -59,7 +64,7 @@ def keywordIndentifier(token):
 
     return token
 
-def getTokens(line):
+def getTokens(line, output):
     if line.strip() == "":
         return []
 
@@ -118,6 +123,7 @@ def getTokens(line):
             # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
             continue
+    checkTokenValidity(res, line, output)
     return res
 
 def main(input, output):
@@ -125,17 +131,12 @@ def main(input, output):
 
     for line in input:
         output.write("Line: " + line.strip('\n') + "\n")
-        tokens = getTokens(line)
+        tokens = getTokens(line, output)
         for token in tokens:
-            if token.type == TokenType.ERROR:
-                output.write(f"ERROR READING '{token.value}'\n")
-                continue
             output.write(f"{token.value} : {TokenType.toString(token.type)}\n")
         output.write("\n")
 
             
     input.close()
     output.close()
-        
-
 # ArgParser()
