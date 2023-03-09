@@ -4,7 +4,6 @@
 """
 
 from enum import Enum
-# import argparse
 import re
 
 class TokenType(Enum):
@@ -34,27 +33,12 @@ class Token:
        self.value = value  
        
 
-# def ArgParser():
-#     """
-#         Arugment Parser for the arguments passed from command line
-        
-#         @return: None
-#     """
-#     argParser = argparse.ArgumentParser()
-#     argParser.add_argument("-i", "--input", help="Input File")
-#     argParser.add_argument("-o", "--output", help="Output File")
-#     args = argParser.parse_args()
-
-#     input = open(args.input, "r")
-#     output = open(args.output, "a")
-    
-#     main(input, output)
-
 def checkTokenValidity(tokens, line, output):
     for token in tokens:
         if token.type == TokenType.ERROR: 
             output.write(f"SyntaxError: Invalid Token at: {line}")
             quit(0)
+            
 
 def keywordIndentifier(token):
     keyWords = {"if", "then", "else", "endif", "while", "do", "endwhile", "skip"}
@@ -64,6 +48,7 @@ def keywordIndentifier(token):
 
     return token
 
+# for external and importing use
 def getTokens(line, output):
     if line.strip() == "":
         return []
@@ -71,7 +56,6 @@ def getTokens(line, output):
     res = list()
     i = 0
     while i < len(line):
-        
         #If current char is whitespace or newline 
         if line[i] == " " or line[i] == "\n":
             i += 1
@@ -87,7 +71,6 @@ def getTokens(line, output):
             while i < len(line) and re.match(r"[0-9]", line[i]) != None:
                 newToken.value = 10 * newToken.value + int(line[i]) 
                 i += 1
-            # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
             continue
         elif(re.match(r"[a-zA-Z]", line[i]) != None): # Identifiers
@@ -100,7 +83,6 @@ def getTokens(line, output):
             
             newToken = keywordIndentifier(newToken)
             
-            # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
             continue
         elif(re.match(r"[\+|\-|\*|/|\(|\)|;|:]", line[i]) != None): # Symbols
@@ -114,29 +96,14 @@ def getTokens(line, output):
             elif (line[i-1] == ":"):
                 newToken.type = TokenType.ERROR
 
-            # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
             continue
         else: # Errors
             newToken.value = str(line[i])
             i += 1
-            # print(f"{newToken.value} : {newToken.type}")
             res.append(newToken)
             continue
     checkTokenValidity(res, line, output)
     return res
 
-def main(input, output):
-    tokens = list()
-
-    for line in input:
-        output.write("Line: " + line.strip('\n') + "\n")
-        tokens = getTokens(line, output)
-        for token in tokens:
-            output.write(f"{token.value} : {TokenType.toString(token.type)}\n")
-        output.write("\n")
-
-            
-    input.close()
-    output.close()
-# ArgParser()
+    

@@ -1,4 +1,3 @@
-import argparse
 import Scanner
 
 class Node():
@@ -19,132 +18,116 @@ class Tree():
         root.middle = middle
         root.right = right
         return root
+    
+# Counter.val acts as our 'i' for accessing elements in token array
+class Counter():
+    def __init__(self) -> None:
+        Counter.val = 0
         
-
+        
 def printTree(node, output, whitespace=''):
+    '''preorder traverse of tree'''
+    
     if node == None: return
     output.write(whitespace + str(node.value) + " : " + str(node.type) + '\n')
     printTree(node.left, output, whitespace+'\t')
     printTree(node.middle, output, whitespace+'\t')
     printTree(node.right, output, whitespace+'\t')
 
+
+# when error occurs, raiseError() is called
 def raiseError(token, output):
-    output.write(f"SyntaxError: Invalid Parsing: {token}")
+    '''when error occurs, raiseError() is called'''
+    
+    output.write(f"SyntaxError: Invalid Parsing '{token}'")
     quit(0)
 
-# i is our global iterator for each token list
-i = 0   
+
+# Counter.val acts as our 'i' for accessing elements in token array
 def consumeToken():
-    global i
-    i +=1
+    Counter.val += 1
+
 
 def parseExpr(tokens, output):
     if tokens == None: return
 
     tree = parseTerm(tokens, output)
-    while i < len(tokens) and tokens[i].value == '+':
+    while Counter.val < len(tokens) and tokens[Counter.val].value == '+':
         consumeToken() 
-        tree = Tree.MakeSubTree(tokens[i-1], tree, None, parseTerm(tokens, output))
+        tree = Tree.MakeSubTree(tokens[Counter.val-1], tree, None, parseTerm(tokens, output))
 
     return tree
+
 
 def parseTerm(tokens, output):
     tree = parseFactor(tokens, output)
-    while i < len(tokens) and tokens[i].value == '-':
+    while Counter.val < len(tokens) and tokens[Counter.val].value == '-':
         consumeToken()
-        tree = Tree.MakeSubTree(tokens[i-1], tree, None, parseFactor(tokens, output))
+        tree = Tree.MakeSubTree(tokens[Counter.val-1], tree, None, parseFactor(tokens, output))
 
     return tree
+
 
 def parseFactor(tokens, output):
     tree = parsePiece(tokens, output)
-    while i < len(tokens) and tokens[i].value == '/':
+    while Counter.val < len(tokens) and tokens[Counter.val].value == '/':
         consumeToken()
-        tree = Tree.MakeSubTree(tokens[i-1], tree, None, parsePiece(tokens, output))
+        tree = Tree.MakeSubTree(tokens[Counter.val-1], tree, None, parsePiece(tokens, output))
 
     return tree
+
 
 def parsePiece(tokens, output):
     tree = parseElement(tokens, output)
-    while i < len(tokens) and tokens[i].value == '*': 
+    while Counter.val < len(tokens) and tokens[Counter.val].value == '*': 
         consumeToken()
-        tree = Tree.MakeSubTree(tokens[i-1], tree, None, parseElement(tokens, output))
+        tree = Tree.MakeSubTree(tokens[Counter.val-1], tree, None, parseElement(tokens, output))
 
     return tree
 
+
 def parseElement(tokens, output):
-    if i < len(tokens) and tokens[i].value == '(':
+    if Counter.val < len(tokens) and tokens[Counter.val].value == '(':
         consumeToken()
         tree = parseExpr(tokens, output) 
-        if i < len(tokens) and tokens[i].value == ')':
+        if Counter.val < len(tokens) and tokens[Counter.val].value == ')':
             consumeToken()
             return tree
         else:
-            raiseError("MISSING ')'", output)
+            raiseError("MISSING )", output)
 
-    elif i < len(tokens) and tokens[i].type == Scanner.TokenType.NUMBER:
+    elif Counter.val < len(tokens) and tokens[Counter.val].type == Scanner.TokenType.NUMBER:
         consumeToken()
         #if next token isn't a symbol, raiseError()
-        if i < len(tokens) and tokens[i].type != Scanner.TokenType.SYMBOL: raiseError(tokens[i].value, output)
+        if Counter.val < len(tokens) and tokens[Counter.val].type != Scanner.TokenType.SYMBOL: raiseError(tokens[Counter.val].value, output)
         
-        return Tree.MakeSubTree(tokens[i-1], None, None, None)
-    elif i < len(tokens) and tokens[i].type == Scanner.TokenType.INDENTIFIER:
+        return Tree.MakeSubTree(tokens[Counter.val-1], None, None, None)
+    elif Counter.val < len(tokens) and tokens[Counter.val].type == Scanner.TokenType.INDENTIFIER:
         consumeToken()
         #if next token isn't a symbol, raiseError()
-        if i < len(tokens) and tokens[i].type != Scanner.TokenType.SYMBOL: raiseError(tokens[i].value, output)
+        if Counter.val < len(tokens) and tokens[Counter.val].type != Scanner.TokenType.SYMBOL: raiseError(tokens[Counter.val].value, output)
         
-        return Tree.MakeSubTree(tokens[i-1], None, None, None)
+        return Tree.MakeSubTree(tokens[Counter.val-1], None, None, None)
     else:
-        raiseError(tokens[i].value, output)
+        raiseError(tokens[Counter.val].value, output)
 
             
-#For external use
 def getAST(line, output):
+    '''
+    For external and importing use
+    '''
     tokens = Scanner.getTokens(line, output)
     if tokens == []: return []
-
+    
+    output.write("Line: " + line.strip('\n') + "\n\n")
+    output.write("Tokens:\n")
+    for token in tokens:
+        output.write(f"{token.value} : {Scanner.TokenType.toString(token.type)}\n")
+    output.write("\n")
+    
+    # initializes Counter's 'val' attribute to 0
+    Counter()
     root = parseExpr(tokens, output)
     return root
 
-def main(input, output):
-    global i
-    for line in input:
-        
-        tokens = Scanner.getTokens(line, output)
-        if tokens == []: continue
-        
-        output.write("Line: " + line.strip('\n') + "\n\n")
-        output.write("Tokens:\n")
-        for token in tokens:
-            output.write(f"{token.value} : {Scanner.TokenType.toString(token.type)}\n")
-        output.write("\n")
-        
-        root = parseExpr(tokens, output)
-        i = 0
-        printTree(root, output)
-        output.write("\n\n")
-        
-    input.close()
-    output.close()
     
-def ArgParser():
-    """
-        Arugment Parser for the arguments passed from command line
-        
-        @return: None
-    """
-    argParser = argparse.ArgumentParser()
-    argParser.add_argument("-i", "--input", help="Input File")
-    argParser.add_argument("-o", "--output", help="Output File")
-    args = argParser.parse_args()
-
-    # input = open(args.input, "r")
-    # output = open(args.output, "a")
-
-    input = open("input_file.txt", "r")
-    output = open("out.txt", "a")
-    
-    main(input, output)
-    
-        
-ArgParser()
