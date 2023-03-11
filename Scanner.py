@@ -1,5 +1,5 @@
 """ Jacob Bejarano,  Wesly Barayuga
-    Project Phase 1.2 - Scanner for Expressions
+    Project Phase 1.2 - Scanner for Full Language
     02/26/23
 """
 

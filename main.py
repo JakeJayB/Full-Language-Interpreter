@@ -2,13 +2,9 @@ import argparse
 import Parser
 
 def main(input, output):
-    
-    for line in input:
-        root = Parser.getAST(line, output)
-        if root == []: continue
-        
-        Parser.printTree(root, output)
-        output.write("\n\n")
+    root = Parser.getAST(input, output)
+    output.write("AST:\n")
+    Parser.printTree(root, output)
     input.close()
     output.close()
 
