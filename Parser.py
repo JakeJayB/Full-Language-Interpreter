@@ -167,6 +167,55 @@ def parseBaseStatement(tokens, output):
     else:
         raiseError("")
 
+# TODO: implement parseAssignment
+def parseAssignment(tokens, output):
+    """
+    if Counter.next_token.type == Scanner.TokenType.IDENTIFIER:
+        temp = Counter.next_token
+        consumeToken()
+        if Counter.next_token == ':='
+            consumeToken()
+            return Tree.MakeSubTree(':=', Tree.MakeSubeTree(temp, None, None, None), None, parseExpr(tokens, output))
+    """
+
+# TODO: implement parseIfStatement
+def parseIfStatement(tokens, output):
+    """
+    if Counter.next_token.type == Scanner.TokenType.KEYWORD:
+        consumeToken()
+        tree_1 = parseExpr(tokens, output)
+
+        if Counter.next_token == "then":
+            consumeToken()
+            tree_2 = parseStatement(tokens, output)
+
+        elif Counter.next_token == "else":
+            consumeToken()
+            tree_3 = parseStatement(tokens, output)
+
+            if Counter.next_token == "endif":
+                consumeToken()
+                return Tree.MakeSubTree(tokens[Counter.val-1], tree_1, tree_2, tree_3)
+    else:
+        raiseError("")
+    """
+
+# TODO: implement parseWhileStatement
+def parseWhileStatement(tokens, output):
+    """
+    if Counter.next_token == "while":
+        consumeToken()
+        tree_1 = parseExpr(tokens, output)
+        if Counter.next_token == "do":
+            consumeToken()
+            tree_2 = parseStatement(tokens, output)
+            if Counter.next_token == "endwhile":
+                consumeToken()
+                return Tree.MakeSubTree(tokens[Counter.val-1], tree_1, None, tree_2)
+    else:
+        raiseError("")
+    """
+
 def parseExpr(tokens, output):
     tree = parseTerm(tokens, output)
     while Counter.next_token != None and Counter.next_token.value == '+':
