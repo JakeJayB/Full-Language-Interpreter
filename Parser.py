@@ -147,7 +147,7 @@ def parseStatement(tokens, output):
         consumeToken(tokens)
         tree = Tree.MakeSubTree(temp, tree, None, parseBaseStatement(tokens, output))
     return tree
-    
+
 def parseBaseStatement(tokens, output):
     if Counter.next_token != None and Counter.next_token.value == "skip":
         temp = Counter.next_token
@@ -156,25 +156,22 @@ def parseBaseStatement(tokens, output):
     elif Counter.next_token != None and Counter.next_token.value == "if":
         return parseIfStatement(tokens, output)
     elif Counter.next_token != None and Counter.next_token.value == "while":
-        pass
-        #return parseWhileStatement(tokens, output)
+        return parseWhileStatement(tokens, output)
     elif Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.INDENTIFIER:
         return parseAssignment(tokens, output)
     else:
         raiseError(Counter.next_token, output)
 
-# TODO: implement parseAssignment
 def parseAssignment(tokens, output):
     if Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.INDENTIFIER:
         temp = Counter.next_token
         consumeToken(tokens)
         
-        if Counter.next_token == None or Counter.next_token != ":=": raiseError("EXPECTING :=", output)
+        if Counter.next_token == None or Counter.next_token.value != ":=": raiseError("EXPECTING :=", output)
         temp2 = Counter.next_token
         consumeToken(tokens)
         return Tree.MakeSubTree(temp2, Tree.MakeSubeTree(temp, None, None, None), None, parseExpr(tokens, output))
             
-
 
 def parseIfStatement(tokens, output):
         #  p V q
@@ -198,22 +195,22 @@ def parseIfStatement(tokens, output):
     else:
         raiseError("EXPECTED KEYWORD")         
 
-
-# TODO: implement parseWhileStatement
 def parseWhileStatement(tokens, output):
-    """
-    if Counter.next_token == "while":
-        consumeToken()
+    if Counter.next_token != None and Counter.next_token.value == "while":
+        temp = Counter.next_token
+        consumeToken(tokens)
         tree_1 = parseExpr(tokens, output)
-        if Counter.next_token == "do":
-            consumeToken()
-            tree_2 = parseStatement(tokens, output)
-            if Counter.next_token == "endwhile":
-                consumeToken()
-                return Tree.MakeSubTree(tokens[Counter.val-1], tree_1, None, tree_2)
+
+        if Counter.next_token == None or Counter.next_token.value != "do": raiseError("EXPECTED 'do'", output)
+        consumeToken(tokens)
+        tree_2 = parseStatement(tokens, output)
+
+        if Counter.next_token == None or Counter.next_token.value != "endwhile": raiseError("EXPECTED 'endwhile'", output)
+        consumeToken(tokens)
+        return Tree.MakeSubTree(temp, tree_1, None, tree_2)
+            
     else:
-        raiseError("")
-    """
+        raiseError("EXPECTING KEYWORD")
 
 def parseExpr(tokens, output):
     tree = parseTerm(tokens, output)
