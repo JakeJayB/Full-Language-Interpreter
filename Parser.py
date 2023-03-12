@@ -170,7 +170,7 @@ def parseAssignment(tokens, output):
         if Counter.next_token == None or Counter.next_token.value != ":=": raiseError("EXPECTING :=", output)
         temp2 = Counter.next_token
         consumeToken(tokens)
-        return Tree.MakeSubTree(temp2, Tree.MakeSubeTree(temp, None, None, None), None, parseExpr(tokens, output))
+        return Tree.MakeSubTree(temp2, Tree.MakeSubTree(temp, None, None, None), None, parseExpr(tokens, output))
             
 
 def parseIfStatement(tokens, output):
@@ -297,7 +297,7 @@ def getAST(input, output):
     # initializes Counter's 'val' attribute to 0
     Counter()
     Counter.next_token = tokens[0]
-    root = parseExpr(tokens, output)
+    root = parseStatement(tokens, output)
     return root
 
     

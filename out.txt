@@ -1,1 +1,59 @@
+Tokens:
+z : INDENTIFIER
+:= : SYMBOL
+0 : NUMBER
+; : SYMBOL
+x : INDENTIFIER
+:= : SYMBOL
+10 : NUMBER
+; : SYMBOL
+y : INDENTIFIER
+:= : SYMBOL
+0 : NUMBER
+; : SYMBOL
+while : KEYWORD
+x : INDENTIFIER
+- : SYMBOL
+y : INDENTIFIER
+do : KEYWORD
+z : INDENTIFIER
+:= : SYMBOL
+z : INDENTIFIER
++ : SYMBOL
+y : INDENTIFIER
+; : SYMBOL
+y : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+1 : NUMBER
+endwhile : KEYWORD
 
+AST:
+; : TokenType.SYMBOL
+	; : TokenType.SYMBOL
+		; : TokenType.SYMBOL
+			:= : TokenType.SYMBOL
+				z : TokenType.INDENTIFIER
+				0 : TokenType.NUMBER
+			:= : TokenType.SYMBOL
+				x : TokenType.INDENTIFIER
+				10 : TokenType.NUMBER
+		:= : TokenType.SYMBOL
+			y : TokenType.INDENTIFIER
+			0 : TokenType.NUMBER
+	while : TokenType.KEYWORD
+		- : TokenType.SYMBOL
+			x : TokenType.INDENTIFIER
+			y : TokenType.INDENTIFIER
+		; : TokenType.SYMBOL
+			:= : TokenType.SYMBOL
+				z : TokenType.INDENTIFIER
+				+ : TokenType.SYMBOL
+					z : TokenType.INDENTIFIER
+					y : TokenType.INDENTIFIER
+			:= : TokenType.SYMBOL
+				y : TokenType.INDENTIFIER
+				+ : TokenType.SYMBOL
+					y : TokenType.INDENTIFIER
+					1 : TokenType.NUMBER
