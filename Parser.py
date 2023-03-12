@@ -116,7 +116,9 @@ def raiseError(token, output):
 #     elif Counter.val < len(tokens) and tokens[Counter.val].type == Scanner.TokenType.INDENTIFIER:
 #         consumeToken()
 #         #if next token isn't a symbol, raiseError()
-#         if Counter.val < len(tokens) and tokens[Counter.val].type != Scanner.TokenType.SYMBOL: raiseError(tokens[Counter.val].value, output)
+#         if Counter.val < len(tokens) and tokens[Counter.val].type != Scanner.TokenType.SYMBOL: raiseError(tokens[Counter.val].value, output) 
+        
+#         #while 3 + 2 then statement else statement
         
 #         return Tree.MakeSubTree(tokens[Counter.val-1], None, None, None)
 #     elif Counter.val >= len(tokens):
@@ -126,14 +128,18 @@ def raiseError(token, output):
         
         
         
+        
+        
+        
 # Counter.val acts as our 'i' for accessing elements in token array
 def consumeToken(tokens):
     Counter.val += 1
     if Counter.val+1 >= len(tokens): 
         Counter.next_token = None 
         return
-    Counter.next_token = tokens[Counter.val+1]
+    Counter.next_token = tokens[Counter.val+1]    
     
+
 def parseStatement(tokens, output):
     tree = parseBaseStatement(tokens, output)
     while Counter.next_token != None and Counter.next_token.value == ';':
@@ -143,15 +149,15 @@ def parseStatement(tokens, output):
     return tree
     
 def parseBaseStatement(tokens, output):
-    if Counter.next_token != None and Counter.next_token == "skip":
+    if Counter.next_token != None and Counter.next_token.value == "skip":
         temp = Counter.next_token
         consumeToken()
         return Tree.MakeSubTree(temp, None, None, None)
-    elif Counter.next_token != None and Counter.next_token == "if":
+    elif Counter.next_token != None and Counter.next_token.value == "if":
         pass
         # consumeToken()
         #return parseIfStatement()
-    elif Counter.next_token != None and Counter.next_token == "while":
+    elif Counter.next_token != None and Counter.next_token.value == "while":
         pass
         # consumeToken()
         #return parseWhileStatement()
@@ -175,7 +181,7 @@ def parseTerm(tokens, output):
     while Counter.next_token != None and Counter.next_token.value == '-':
         temp = Counter.next_token
         consumeToken(tokens)
-        tree = Tree.MakeSubTree(temp, tree, None, parseFactor(tokens, output))
+        tree = Tree.MakeSubTree(temp, tree, None, parseFactor(tokens, output)) 
 
     return tree
 
@@ -218,7 +224,7 @@ def parseElement(tokens, output):
     elif Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.INDENTIFIER:
         temp = Counter.next_token
         consumeToken(tokens)
-        
+        # while 3 3 then statement else statement
         return Tree.MakeSubTree(temp, None, None, None)
     elif Counter.next_token == None:
         raiseError("MISSING NUM OR ID AT END",output)
