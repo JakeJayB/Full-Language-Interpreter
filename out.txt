@@ -14,9 +14,11 @@ y : INDENTIFIER
 30 : NUMBER
 * : SYMBOL
 ( : SYMBOL
+( : SYMBOL
 2 : NUMBER
 - : SYMBOL
 2 : NUMBER
+) : SYMBOL
 ) : SYMBOL
 ; : SYMBOL
 while : KEYWORD
@@ -39,9 +41,57 @@ skip : KEYWORD
 endif : KEYWORD
 endwhile : KEYWORD
 ; : SYMBOL
+x5z23 : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+25 : NUMBER
++ : SYMBOL
+x : INDENTIFIER
 
-SyntaxError: Invalid Parsing 'None'Tokens:
-6 : NUMBER
+AST:
+; : SYMBOL
+	; : SYMBOL
+		; : SYMBOL
+			; : SYMBOL
+				:= : SYMBOL
+					z : INDENTIFIER
+					0 : NUMBER
+				:= : SYMBOL
+					x : INDENTIFIER
+					10 : NUMBER
+			:= : SYMBOL
+				y : INDENTIFIER
+				+ : SYMBOL
+					25 : NUMBER
+					* : SYMBOL
+						30 : NUMBER
+						- : SYMBOL
+							2 : NUMBER
+							2 : NUMBER
+		while : KEYWORD
+			- : SYMBOL
+				x : INDENTIFIER
+				y : INDENTIFIER
+			if : KEYWORD
+				+ : SYMBOL
+					z : INDENTIFIER
+					y : INDENTIFIER
+				:= : SYMBOL
+					y : INDENTIFIER
+					+ : SYMBOL
+						y : INDENTIFIER
+						1 : NUMBER
+				skip : KEYWORD
+	:= : SYMBOL
+		x5z23 : INDENTIFIER
+		+ : SYMBOL
+			+ : SYMBOL
+				y : INDENTIFIER
+				25 : NUMBER
+			x : INDENTIFIER
+Tokens:
+z : INDENTIFIER
 := : SYMBOL
 0 : NUMBER
 ; : SYMBOL
@@ -56,9 +106,11 @@ y : INDENTIFIER
 30 : NUMBER
 * : SYMBOL
 ( : SYMBOL
+( : SYMBOL
 2 : NUMBER
 - : SYMBOL
 2 : NUMBER
+) : SYMBOL
 ) : SYMBOL
 ; : SYMBOL
 while : KEYWORD
@@ -81,5 +133,214 @@ skip : KEYWORD
 endif : KEYWORD
 endwhile : KEYWORD
 ; : SYMBOL
+x5z23 : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+25 : NUMBER
++ : SYMBOL
 
-SyntaxError: Invalid Parsing (<Scanner.Token object at 0x103148110>)
+SyntaxError: Invalid Parsing (MISSING NUM OR ID AT END)Tokens:
+z : INDENTIFIER
+:= : SYMBOL
+0 : NUMBER
+; : SYMBOL
+x : INDENTIFIER
+:= : SYMBOL
+10 : NUMBER
+; : SYMBOL
+y : INDENTIFIER
+:= : SYMBOL
+25 : NUMBER
++ : SYMBOL
+30 : NUMBER
+* : SYMBOL
+( : SYMBOL
+( : SYMBOL
+2 : NUMBER
+- : SYMBOL
+2 : NUMBER
+) : SYMBOL
+) : SYMBOL
+; : SYMBOL
+while : KEYWORD
+skip : KEYWORD
+do : KEYWORD
+if : KEYWORD
+z : INDENTIFIER
++ : SYMBOL
+y : INDENTIFIER
+then : KEYWORD
+y : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+1 : NUMBER
+else : KEYWORD
+skip : KEYWORD
+endif : KEYWORD
+endwhile : KEYWORD
+; : SYMBOL
+x5z23 : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+25 : NUMBER
++ : SYMBOL
+5 : NUMBER
+
+SyntaxError :: Invalid Parsing => skipTokens:
+z : INDENTIFIER
+:= : SYMBOL
+0 : NUMBER
+; : SYMBOL
+x : INDENTIFIER
+:= : SYMBOL
+10 : NUMBER
+; : SYMBOL
+y : INDENTIFIER
+:= : SYMBOL
+25 : NUMBER
++ : SYMBOL
+30 : NUMBER
+* : SYMBOL
+( : SYMBOL
+( : SYMBOL
+2 : NUMBER
+- : SYMBOL
+2 : NUMBER
+) : SYMBOL
+) : SYMBOL
+2 : NUMBER
+; : SYMBOL
+while : KEYWORD
+skip : KEYWORD
+do : KEYWORD
+if : KEYWORD
+z : INDENTIFIER
++ : SYMBOL
+y : INDENTIFIER
+then : KEYWORD
+y : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+1 : NUMBER
+else : KEYWORD
+skip : KEYWORD
+endif : KEYWORD
+endwhile : KEYWORD
+; : SYMBOL
+x5z23 : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+25 : NUMBER
++ : SYMBOL
+5 : NUMBER
+
+SyntaxError :: Invalid Parsing => INCOMPLETED TREE DUE TO INCONSISTENT SYNTAXSyntaxError :: Invalid Token '&' in: z := 0;&
+SyntaxError :: Invalid Token '`' in: while skip do `
+Tokens:
+z : INDENTIFIER
+:= : SYMBOL
+0 : NUMBER
+; : SYMBOL
+x : INDENTIFIER
+:= : SYMBOL
+10 : NUMBER
+; : SYMBOL
+y : INDENTIFIER
+:= : SYMBOL
+25 : NUMBER
++ : SYMBOL
+30 : NUMBER
+* : SYMBOL
+( : SYMBOL
+( : SYMBOL
+2 : NUMBER
+- : SYMBOL
+2 : NUMBER
+) : SYMBOL
+) : SYMBOL
+2 : NUMBER
+; : SYMBOL
+while : KEYWORD
+skip : KEYWORD
+do : KEYWORD
+if : KEYWORD
+z : INDENTIFIER
++ : SYMBOL
+y : INDENTIFIER
+then : KEYWORD
+y : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+1 : NUMBER
+else : KEYWORD
+skip : KEYWORD
+endif : KEYWORD
+endwhile : KEYWORD
+; : SYMBOL
+x5z23 : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
++ : SYMBOL
+25 : NUMBER
++ : SYMBOL
+5 : NUMBER
+
+SyntaxError :: Invalid Parsing => INCOMPLETED TREE DUE TO INCONSISTENT SYNTAXTokens:
+z : INDENTIFIER
+:= : SYMBOL
+0 : NUMBER
+; : SYMBOL
+x : INDENTIFIER
+:= : SYMBOL
+10 : NUMBER
+; : SYMBOL
+y : INDENTIFIER
+:= : SYMBOL
+25 : NUMBER
++ : SYMBOL
+30 : NUMBER
+* : SYMBOL
+( : SYMBOL
+( : SYMBOL
+2 : NUMBER
+- : SYMBOL
+2 : NUMBER
+) : SYMBOL
+) : SYMBOL
+2 : NUMBER
+; : SYMBOL
+while : KEYWORD
+skip : KEYWORD
+do : KEYWORD
+if : KEYWORD
+z : INDENTIFIER
++ : SYMBOL
+y : INDENTIFIER
+then : KEYWORD
+y : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
+1 : NUMBER
+else : KEYWORD
+skip : KEYWORD
+endif : KEYWORD
+endwhile : KEYWORD
+; : SYMBOL
+x5z23 : INDENTIFIER
+:= : SYMBOL
+y : INDENTIFIER
++ : SYMBOL
++ : SYMBOL
+25 : NUMBER
++ : SYMBOL
+5 : NUMBER
+
+SyntaxError :: Parsing Exception => INCOMPLETED TREE DUE TO INCONSISTENT STRUCTURE

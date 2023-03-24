@@ -36,7 +36,7 @@ class Token:
 def  checkTokenValidity(tokens, line, output):
     for token in tokens:
         if token.type == TokenType.ERROR: 
-            output.write(f"SyntaxError: Invalid Token at: {line}")
+            output.write(f"SyntaxError :: Invalid Token '{token.value}' in: {line}")
             quit(0)
             
 
@@ -45,8 +45,8 @@ def keywordIndentifier(token):
 
     if token.value in keyWords:
         token.type = TokenType.KEYWORD
-
     return token
+
 
 # for external and importing use
 def getTokens(line, output):

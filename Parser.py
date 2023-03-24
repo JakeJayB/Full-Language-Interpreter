@@ -34,7 +34,7 @@ def printTree(node, output, whitespace=''):
     '''preorder traverse of tree'''
     
     if node == None: return
-    output.write(whitespace + str(node.value) + " : " + str(node.type) + '\n')
+    output.write(whitespace + str(node.value) + " : " + str(Scanner.TokenType.toString(node.type)) + '\n')
     printTree(node.left, output, whitespace+'\t')
     printTree(node.middle, output, whitespace+'\t')
     printTree(node.right, output, whitespace+'\t')
@@ -44,7 +44,7 @@ def printTree(node, output, whitespace=''):
 def raiseError(token, output):
     '''when error occurs, raiseError() is called'''
     
-    output.write(f"SyntaxError: Invalid Parsing ({token})")
+    output.write(f"SyntaxError :: Parsing Exception => {token}")
     quit(0)
         
 
@@ -77,14 +77,15 @@ def parseBaseStatement(tokens, output):
     elif Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.INDENTIFIER:
         return parseAssignment(tokens, output)
     else:
-        raiseError(Counter.next_token, output)
+        if Counter.next_token != None: raiseError(Counter.next_token.value, output)
+        else: raiseError("EXPECTED STATEMENT AT END", output)
 
 def parseAssignment(tokens, output):
     if Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.INDENTIFIER:
         temp = Counter.next_token
         consumeToken(tokens)
         
-        if Counter.next_token == None or Counter.next_token.value != ":=": raiseError("EXPECTING :=", output)
+        if Counter.next_token == None or Counter.next_token.value != ":=": raiseError("EXPECTING ':='", output)
         temp2 = Counter.next_token
         consumeToken(tokens)
         return Tree.MakeSubTree(temp2, Tree.MakeSubTree(temp, None, None, None), None, parseExpr(tokens, output))
@@ -127,7 +128,7 @@ def parseWhileStatement(tokens, output):
         return Tree.MakeSubTree(temp, tree_1, None, tree_2)
             
     else:
-        raiseError("EXPECTING KEYWORD")
+        raiseError("EXPECTED KEYWORD")
 
 def parseExpr(tokens, output):
     tree = parseTerm(tokens, output)
@@ -173,10 +174,9 @@ def parseElement(tokens, output):
         tree = parseExpr(tokens, output) 
         if Counter.next_token != None and Counter.next_token.value == ')':
             consumeToken(tokens)
-
             return tree
         else:
-            raiseError("MISSING )", output)
+            raiseError("MISSING ')'", output)
 
     elif Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.NUMBER:
         temp = Counter.next_token
@@ -215,6 +215,7 @@ def getAST(input, output):
     Counter()
     Counter.next_token = tokens[0]
     root = parseStatement(tokens, output)
+    if Counter.val+1 < len(tokens): raiseError("INCOMPLETED TREE DUE TO INCONSISTENT SYNTAX STRUCTURE", output)
     return root
 
     
