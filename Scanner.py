@@ -33,7 +33,7 @@ class Token:
        self.value = value  
        
 
-def checkTokenValidity(tokens, line, output):
+def  checkTokenValidity(tokens, line, output):
     for token in tokens:
         if token.type == TokenType.ERROR: 
             output.write(f"SyntaxError: Invalid Token at: {line}")
