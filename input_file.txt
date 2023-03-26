@@ -1,8 +1,7 @@
-6 := 0;
+Z := 0;
 x := 10;
-y := 25 + 30 * (2-2);
+y := 0;
 while x-y do
-    if z + y then
-        y := y + 1
-    else skip endif
-endwhile;
+    z := z + y;
+    y := y + 1
+endwhile

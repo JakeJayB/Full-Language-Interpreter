@@ -1,6 +1,6 @@
 """ Jacob Bejarano,  Wesly Barayuga
-    Project Phase 2.2 - Parser for Expressions
-    03/11/23
+    Project Phase 2.2 - Parser for Full Language
+    03/25/23
 """
 import Scanner
 
@@ -186,12 +186,11 @@ def parseElement(tokens, output):
     elif Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.INDENTIFIER:
         temp = Counter.next_token
         consumeToken(tokens)
-        # while 3 3 then statement else statement
         return Tree.MakeSubTree(temp, None, None, None)
     elif Counter.next_token == None:
         raiseError("MISSING NUM OR ID AT END",output)
     else:
-        raiseError(Counter.next_token.value, output)
+        raiseError(f"EXPECTED NUM OR ID, NOT '{Counter.next_token.value}'", output)
 
 
             
@@ -214,6 +213,7 @@ def getAST(input, output):
     # initializes Counter's 'val' attribute to 0
     Counter()
     Counter.next_token = tokens[0]
+    
     root = parseStatement(tokens, output)
     if Counter.val+1 < len(tokens): raiseError("INCOMPLETED TREE DUE TO INCONSISTENT SYNTAX STRUCTURE", output)
     return root
