@@ -39,7 +39,6 @@ def printTree(node, output, whitespace=''):
     printTree(node.middle, output, whitespace+'\t')
     printTree(node.right, output, whitespace+'\t')
 
-
 # when error occurs, raiseError() is called
 def raiseError(token, output):
     '''when error occurs, raiseError() is called'''

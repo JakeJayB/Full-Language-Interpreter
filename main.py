@@ -19,7 +19,7 @@ def main(input, output):
     
 def ArgParser():
     """
-        Arugment Parser for the arguments passed from command line
+        Argument Parser for the arguments passed from command line
         
         @return: None
     """
