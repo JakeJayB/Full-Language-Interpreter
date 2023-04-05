@@ -1,5 +1,9 @@
 Tokens:
+<<<<<<< HEAD
 z : INDENTIFIER
+=======
+Z : INDENTIFIER
+>>>>>>> 0ac8e4b077bed6eec5326c041c21d488353503eb
 := : SYMBOL
 0 : NUMBER
 ; : SYMBOL
@@ -30,6 +34,7 @@ y : INDENTIFIER
 endwhile : KEYWORD
 
 AST:
+<<<<<<< HEAD
 ; : TokenType.SYMBOL
 	; : TokenType.SYMBOL
 		; : TokenType.SYMBOL
@@ -116,3 +121,32 @@ AST:
 				+ : TokenType.SYMBOL
 					y : TokenType.INDENTIFIER
 					1 : TokenType.NUMBER
+=======
+; : SYMBOL
+	; : SYMBOL
+		; : SYMBOL
+			:= : SYMBOL
+				Z : INDENTIFIER
+				0 : NUMBER
+			:= : SYMBOL
+				x : INDENTIFIER
+				10 : NUMBER
+		:= : SYMBOL
+			y : INDENTIFIER
+			0 : NUMBER
+	while : KEYWORD
+		- : SYMBOL
+			x : INDENTIFIER
+			y : INDENTIFIER
+		; : SYMBOL
+			:= : SYMBOL
+				z : INDENTIFIER
+				+ : SYMBOL
+					z : INDENTIFIER
+					y : INDENTIFIER
+			:= : SYMBOL
+				y : INDENTIFIER
+				+ : SYMBOL
+					y : INDENTIFIER
+					1 : NUMBER
+>>>>>>> 0ac8e4b077bed6eec5326c041c21d488353503eb

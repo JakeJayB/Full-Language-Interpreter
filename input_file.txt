@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 z := 0;
 x := 10;
 y := 0;
 while x-y do
 z := z + y;
 y := y + 1
+=======
+Z := 0;
+x := 10;
+y := 0;
+while x-y do
+    z := z + y;
+    y := y + 1
+>>>>>>> 0ac8e4b077bed6eec5326c041c21d488353503eb
 endwhile

@@ -33,7 +33,7 @@ def printTree(node, output, whitespace=''):
     '''preorder traverse of tree'''
     
     if node == None: return
-    output.write(whitespace + str(node.value) + " : " + str(node.type) + '\n')
+    output.write(whitespace + str(node.value) + " : " + str(Scanner.TokenType.toString(node.type)) + '\n')
     printTree(node.left, output, whitespace+'\t')
     printTree(node.middle, output, whitespace+'\t')
     printTree(node.right, output, whitespace+'\t')
@@ -45,6 +45,7 @@ def raiseError(token, output):
     output.write(f"SyntaxError: Invalid Parsing '{token}'")
     quit(0)     
         
+
 # Counter.val acts as our 'i' for accessing elements in token array
 def consumeToken(tokens):
     Counter.val += 1
@@ -122,7 +123,7 @@ def parseWhileStatement(tokens, output):
         return Tree.MakeSubTree(temp, tree_1, None, tree_2)
             
     else:
-        raiseError("EXPECTING KEYWORD")
+        raiseError("EXPECTED KEYWORD")
 
 def parseExpr(tokens, output):
     tree = parseTerm(tokens, output)
@@ -168,10 +169,9 @@ def parseElement(tokens, output):
         tree = parseExpr(tokens, output) 
         if Counter.next_token != None and Counter.next_token.value == ')':
             consumeToken(tokens)
-
             return tree
         else:
-            raiseError("MISSING )", output)
+            raiseError("MISSING ')'", output)
 
     elif Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.NUMBER:
         temp = Counter.next_token
@@ -186,7 +186,7 @@ def parseElement(tokens, output):
     elif Counter.next_token == None:
         raiseError("MISSING NUM OR ID AT END",output)
     else:
-        raiseError(Counter.next_token.value, output)
+        raiseError(f"EXPECTED NUM OR ID, NOT '{Counter.next_token.value}'", output)
 
 
             
