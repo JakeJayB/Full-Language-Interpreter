@@ -35,7 +35,7 @@ def evaluate(node):
         elif node.value == '/':
             return left_val / right_val
         else:
-            raiseError()
+            raiseError("Invalid operator")
 
-def raiseError():
-    pass
+def raiseError(e):
+    print(f"SyntaxError :: {e}")
