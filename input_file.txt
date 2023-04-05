@@ -1,1 +1,7 @@
-3 * (5 + 2 / x - 1) then
+z := 0;
+x := 10;
+y := 0;
+while x-y do
+z := z + y;
+y := y + 1
+endwhile
