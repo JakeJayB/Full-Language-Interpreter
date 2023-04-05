@@ -5,6 +5,7 @@
 
 import argparse
 import Parser
+import Evaluator
 
 def main(input, output):
     root = Parser.getAST(input, output)

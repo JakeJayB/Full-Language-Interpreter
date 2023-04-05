@@ -1,152 +1,27 @@
 Tokens:
-<<<<<<< HEAD
-z : INDENTIFIER
-=======
 Z : INDENTIFIER
->>>>>>> 0ac8e4b077bed6eec5326c041c21d488353503eb
 := : SYMBOL
-0 : NUMBER
-; : SYMBOL
-x : INDENTIFIER
-:= : SYMBOL
+3 : NUMBER
+* : SYMBOL
+( : SYMBOL
+5 : NUMBER
++ : SYMBOL
 10 : NUMBER
-; : SYMBOL
-y : INDENTIFIER
-:= : SYMBOL
-0 : NUMBER
-; : SYMBOL
-while : KEYWORD
-x : INDENTIFIER
+/ : SYMBOL
+3 : NUMBER
 - : SYMBOL
-y : INDENTIFIER
-do : KEYWORD
-z : INDENTIFIER
-:= : SYMBOL
-z : INDENTIFIER
-+ : SYMBOL
-y : INDENTIFIER
-; : SYMBOL
-y : INDENTIFIER
-:= : SYMBOL
-y : INDENTIFIER
-+ : SYMBOL
 1 : NUMBER
-endwhile : KEYWORD
+) : SYMBOL
 
 AST:
-<<<<<<< HEAD
-; : TokenType.SYMBOL
-	; : TokenType.SYMBOL
-		; : TokenType.SYMBOL
-			:= : TokenType.SYMBOL
-				z : TokenType.INDENTIFIER
-				0 : TokenType.NUMBER
-			:= : TokenType.SYMBOL
-				x : TokenType.INDENTIFIER
-				10 : TokenType.NUMBER
-		:= : TokenType.SYMBOL
-			y : TokenType.INDENTIFIER
-			0 : TokenType.NUMBER
-	while : TokenType.KEYWORD
-		- : TokenType.SYMBOL
-			x : TokenType.INDENTIFIER
-			y : TokenType.INDENTIFIER
-		; : TokenType.SYMBOL
-			:= : TokenType.SYMBOL
-				z : TokenType.INDENTIFIER
-				+ : TokenType.SYMBOL
-					z : TokenType.INDENTIFIER
-					y : TokenType.INDENTIFIER
-			:= : TokenType.SYMBOL
-				y : TokenType.INDENTIFIER
-				+ : TokenType.SYMBOL
-					y : TokenType.INDENTIFIER
-					1 : TokenType.NUMBER
-Tokens:
-z : INDENTIFIER
 := : SYMBOL
-0 : NUMBER
-; : SYMBOL
-x : INDENTIFIER
-:= : SYMBOL
-10 : NUMBER
-; : SYMBOL
-y : INDENTIFIER
-:= : SYMBOL
-0 : NUMBER
-; : SYMBOL
-while : KEYWORD
-x : INDENTIFIER
-- : SYMBOL
-y : INDENTIFIER
-do : KEYWORD
-z : INDENTIFIER
-:= : SYMBOL
-z : INDENTIFIER
-+ : SYMBOL
-y : INDENTIFIER
-; : SYMBOL
-y : INDENTIFIER
-:= : SYMBOL
-y : INDENTIFIER
-+ : SYMBOL
-1 : NUMBER
-endwhile : KEYWORD
-
-AST:
-; : TokenType.SYMBOL
-	; : TokenType.SYMBOL
-		; : TokenType.SYMBOL
-			:= : TokenType.SYMBOL
-				z : TokenType.INDENTIFIER
-				0 : TokenType.NUMBER
-			:= : TokenType.SYMBOL
-				x : TokenType.INDENTIFIER
-				10 : TokenType.NUMBER
-		:= : TokenType.SYMBOL
-			y : TokenType.INDENTIFIER
-			0 : TokenType.NUMBER
-	while : TokenType.KEYWORD
-		- : TokenType.SYMBOL
-			x : TokenType.INDENTIFIER
-			y : TokenType.INDENTIFIER
-		; : TokenType.SYMBOL
-			:= : TokenType.SYMBOL
-				z : TokenType.INDENTIFIER
-				+ : TokenType.SYMBOL
-					z : TokenType.INDENTIFIER
-					y : TokenType.INDENTIFIER
-			:= : TokenType.SYMBOL
-				y : TokenType.INDENTIFIER
-				+ : TokenType.SYMBOL
-					y : TokenType.INDENTIFIER
-					1 : TokenType.NUMBER
-=======
-; : SYMBOL
-	; : SYMBOL
-		; : SYMBOL
-			:= : SYMBOL
-				Z : INDENTIFIER
-				0 : NUMBER
-			:= : SYMBOL
-				x : INDENTIFIER
-				10 : NUMBER
-		:= : SYMBOL
-			y : INDENTIFIER
-			0 : NUMBER
-	while : KEYWORD
-		- : SYMBOL
-			x : INDENTIFIER
-			y : INDENTIFIER
-		; : SYMBOL
-			:= : SYMBOL
-				z : INDENTIFIER
-				+ : SYMBOL
-					z : INDENTIFIER
-					y : INDENTIFIER
-			:= : SYMBOL
-				y : INDENTIFIER
-				+ : SYMBOL
-					y : INDENTIFIER
-					1 : NUMBER
->>>>>>> 0ac8e4b077bed6eec5326c041c21d488353503eb
+	Z : INDENTIFIER
+	* : SYMBOL
+		3 : NUMBER
+		+ : SYMBOL
+			5 : NUMBER
+			- : SYMBOL
+				/ : SYMBOL
+					10 : NUMBER
+					3 : NUMBER
+				1 : NUMBER

@@ -65,7 +65,7 @@ def parseStatement(tokens, output):
 def parseBaseStatement(tokens, output):
     if Counter.next_token != None and Counter.next_token.value == "skip":
         temp = Counter.next_token
-        consumeToken()
+        consumeToken(tokens)
         return Tree.MakeSubTree(temp, None, None, None)
     elif Counter.next_token != None and Counter.next_token.value == "if":
         return parseIfStatement(tokens, output)
