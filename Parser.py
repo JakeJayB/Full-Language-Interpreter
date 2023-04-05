@@ -168,7 +168,7 @@ def parseAssignment(tokens, output):
         if Counter.next_token.value == ':=':
             temp2 = Counter.next_token
             consumeToken(tokens)
-            return Tree.MakeSubTree(temp2, Tree.MakeSubeTree(temp, None, None, None), None, parseExpr(tokens, output))
+            return Tree.MakeSubTree(temp2, Tree.MakeSubTree(temp, None, None, None), None, parseExpr(tokens, output))
         else:
             raiseError("EXPECTING :=", output)
 
