@@ -1,18 +1,20 @@
 """ Jacob Bejarano,  Wesly Barayuga
-    Project Phase 2.2 - Parser for Full Language
-    03/25/23
+    Project Phase 3.1 - Parser for Expressions
+    04/04/23
 """
 
 import argparse
 import Parser
+# import Evaluator
 import Evaluator
 
 def main(input, output):
     root = Parser.getAST(input, output)
     output.write("AST:\n")
     Parser.printTree(root, output)
-    result = Evaluator.evaluate(root)
-    print(result[0].value)
+    
+    # Evaluator.evaluateAST(root,output)
+    Evaluator.evaluateAST(root, output)
     input.close()
     output.close()
 
@@ -28,15 +30,14 @@ def ArgParser():
     argParser.add_argument("-o", "--output", help="Output File")
     args = argParser.parse_args()
 
-    # input = open(args.input, "r")
-    # output = open(args.output, "a")
+    input = open(args.input, "r")
+    output = open(args.output, "a")
 
-    input = open("input_file.txt", "r")
-    output = open("out.txt", "a")
+    # input = open("input_file.txt", "r")
+    # output = open("out.txt", "a")
     
     main(input, output)
-    
-        
+     
 ArgParser()
 
 
