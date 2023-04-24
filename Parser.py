@@ -10,18 +10,25 @@ class Node():
         self.type = type
         self.left = None
         self.middle = None
-        self.right = None       
-
-class Tree():
-    def __init__(self, root) -> None:
-        self.root = root
-    
+        self.right = None      
+        
     def MakeSubTree(root, left=None, middle=None, right=None):
         root = Node(root.value, root.type)
         root.left = left
         root.middle = middle
         root.right = right
-        return root
+        return root 
+
+# class Tree():
+#     def __init__(self, root) -> None:
+#         self.root = root
+    
+#     def MakeSubTree(root, left=None, middle=None, right=None):
+#         root = Node(root.value, root.type)
+#         root.left = left
+#         root.middle = middle
+#         root.right = right
+#         return root
     
 # Counter.val acts as our 'i' for accessing elements in token array
 class Counter():
@@ -61,14 +68,14 @@ def parseStatement(tokens, output):
     while Counter.next_token != None and Counter.next_token.value == ';':
         temp = Counter.next_token
         consumeToken(tokens)
-        tree = Tree.MakeSubTree(temp, tree, None, parseBaseStatement(tokens, output))
+        tree = Node.MakeSubTree(temp, tree, None, parseBaseStatement(tokens, output))
     return tree
 
 def parseBaseStatement(tokens, output):
     if Counter.next_token != None and Counter.next_token.value == "skip":
         temp = Counter.next_token
         consumeToken(tokens)
-        return Tree.MakeSubTree(temp, None, None, None)
+        return Node.MakeSubTree(temp, None, None, None)
     elif Counter.next_token != None and Counter.next_token.value == "if":
         return parseIfStatement(tokens, output)
     elif Counter.next_token != None and Counter.next_token.value == "while":
@@ -87,7 +94,7 @@ def parseAssignment(tokens, output):
         if Counter.next_token == None or Counter.next_token.value != ":=": raiseError("EXPECTING ':='", output)
         temp2 = Counter.next_token
         consumeToken(tokens)
-        return Tree.MakeSubTree(temp2, Tree.MakeSubTree(temp, None, None, None), None, parseExpr(tokens, output))
+        return Node.MakeSubTree(temp2, Node.MakeSubTree(temp, None, None, None), None, parseExpr(tokens, output))
             
 
 def parseIfStatement(tokens, output):
@@ -108,7 +115,7 @@ def parseIfStatement(tokens, output):
 
         if Counter.next_token == None or Counter.next_token.value != "endif": raiseError("EXPECTED 'endif'", output)
         consumeToken(tokens)
-        return Tree.MakeSubTree(temp, tree_1, tree_2, tree_3)
+        return Node.MakeSubTree(temp, tree_1, tree_2, tree_3)
     else:
         raiseError("EXPECTED KEYWORD")         
 
@@ -124,7 +131,7 @@ def parseWhileStatement(tokens, output):
 
         if Counter.next_token == None or Counter.next_token.value != "endwhile": raiseError("EXPECTED 'endwhile'", output)
         consumeToken(tokens)
-        return Tree.MakeSubTree(temp, tree_1, None, tree_2)
+        return Node.MakeSubTree(temp, tree_1, None, tree_2)
             
     else:
         raiseError("EXPECTED KEYWORD")
@@ -134,7 +141,7 @@ def parseExpr(tokens, output):
     while Counter.next_token != None and Counter.next_token.value == '+':
         temp = Counter.next_token
         consumeToken(tokens)
-        tree = Tree.MakeSubTree(temp, tree, None, parseTerm(tokens, output))
+        tree = Node.MakeSubTree(temp, tree, None, parseTerm(tokens, output))
     return tree
 
 
@@ -143,7 +150,7 @@ def parseTerm(tokens, output):
     while Counter.next_token != None and Counter.next_token.value == '-':
         temp = Counter.next_token
         consumeToken(tokens)
-        tree = Tree.MakeSubTree(temp, tree, None, parseFactor(tokens, output)) 
+        tree = Node.MakeSubTree(temp, tree, None, parseFactor(tokens, output)) 
 
     return tree
 
@@ -153,7 +160,7 @@ def parseFactor(tokens, output):
     while Counter.next_token != None and Counter.next_token.value == '/':
         temp = Counter.next_token
         consumeToken(tokens)
-        tree = Tree.MakeSubTree(temp, tree, None, parsePiece(tokens, output))
+        tree = Node.MakeSubTree(temp, tree, None, parsePiece(tokens, output))
 
     return tree
 
@@ -163,7 +170,7 @@ def parsePiece(tokens, output):
     while Counter.next_token != None and Counter.next_token.value == '*': 
         temp = Counter.next_token
         consumeToken(tokens)
-        tree = Tree.MakeSubTree(temp, tree, None, parseElement(tokens, output))
+        tree = Node.MakeSubTree(temp, tree, None, parseElement(tokens, output))
 
     return tree
 
@@ -181,16 +188,19 @@ def parseElement(tokens, output):
         temp = Counter.next_token
         consumeToken(tokens)
                 
-        return Tree.MakeSubTree(temp, None, None, None)
+        return Node.MakeSubTree(temp, None, None, None)
     elif Counter.next_token != None and Counter.next_token.type == Scanner.TokenType.INDENTIFIER:
         temp = Counter.next_token
         consumeToken(tokens)
-        return Tree.MakeSubTree(temp, None, None, None)
+        return Node.MakeSubTree(temp, None, None, None)
     elif Counter.next_token == None:
-        raiseError("MISSING NUM OR ID AT END",output)
+        raiseError("MISSING NUM OR IDENTIFIER AT END",output)
     else:
-        raiseError(f"EXPECTED NUM OR ID, NOT '{Counter.next_token.value}'", output)
+        raiseError(f"EXPECTED NUM OR IDENTIFIER, NOT '{Counter.next_token.value}'", output)
 
+def checkASTValidity(tokens, output):
+    # if Counter.val+1 < len(tokens): raiseError("INCOMPLETED TREE DUE TO INCONSISTENT SYNTAX STRUCTURE", output)
+    if Counter.next_token != None: raiseError("INCOMPLETED TREE DUE TO INCONSISTENT SYNTAX STRUCTURE", output)
 
             
 def getAST(input, output):
@@ -202,19 +212,23 @@ def getAST(input, output):
         temp = Scanner.getTokens(line,output)
         if temp == []: continue
         tokens = tokens + temp
-    if tokens == []: return []
     
     output.write("Tokens:\n")
+    if tokens == []: 
+        output.write("No Tokens...\n\n")
+        return None
+    
     for token in tokens:
         output.write(f"{token.value} : {Scanner.TokenType.toString(token.type)}\n")
     output.write("\n")
     
-    # initializes Counter's 'val' attribute to 0
+    # initializes Counter's 'val' attribute to 0, and 'next_token' to None
     Counter()
     Counter.next_token = tokens[0]
     
-    root = parseExpr(tokens, output)
-    if Counter.val+1 < len(tokens): raiseError("INCOMPLETED TREE DUE TO INCONSISTENT SYNTAX STRUCTURE", output)
+    # root = parseExpr(tokens, output)
+    root = parseStatement(tokens, output)
+    checkASTValidity(tokens, output)
     return root
 
     

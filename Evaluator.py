@@ -4,51 +4,166 @@
 """
 from Scanner import TokenType
 from Parser import Node
+import copy
 
-class EvaluatorStack:
+class Evaluator:
     def __init__(self) -> None:
-        EvaluatorStack.stack = []
+        Evaluator.stack = []
+        Evaluator.memory = dict()
+        Evaluator.AST = None
+        
+    def clearStack():
+        Evaluator.stack = []
+
+    def clearMemory():
+        Evaluator.memory.clear()
+        
+    def clearAST():
+        Evaluator.AST = None
+        
+    def clearAll():
+        Evaluator.stack.clear()
+        Evaluator.memory.clear()
+        Evaluator.AST = None
+
+    def getStackValue():
+        if len(Evaluator.stack) != 1: return 0 
+        val = Evaluator.stack[0].value
+        Evaluator.clearStack()
+        return val
         
         
-def checkStack():
-    if len(EvaluatorStack.stack) < 3: return
-    tempArr = EvaluatorStack.stack[-3:]
+# def evaluateFullLanguage(node, output):
+#     if node == None: return None
     
+#     if node.value == ';': 
+#         node.left = evaluateFullLanguage(node.left, output)
+        
+#         if node.left == None: 
+#             return node.right
+#         else: return node
+#     elif node.value == ":=":
+#         evaluateExpression(node.right, output)
+#         Evaluator.memory[node.left.value] = Evaluator.getStackValue()
+#         return None
+#     elif node.value == "while":
+#         evaluateExpression(node.left, output)
+#         if Evaluator.getStackValue() > 0: 
+#             node = Node.MakeSubTree(Node(';',TokenType.SYMBOL), node.right, None, node)
+#             return node
+#         else: 
+#             return None
+
+
+def evaluateFullLanguage(node, output):
+    if node == None: return None
+
+    if node.value == ';':
+        temp_node = copy.deepcopy(node)
+        temp_node.left = evaluateFullLanguage(temp_node.left, output)
+
+        if temp_node.left == None:
+            return temp_node.right
+        else:
+            return temp_node
+    elif node.value == ":=":
+        evaluateExpression(node.right, output)
+        Evaluator.memory[node.left.value] = Evaluator.getStackValue()
+        return None
+    elif node.value == "while":
+        evaluateExpression(node.left, output)
+        if Evaluator.getStackValue() > 0:
+            temp_node = Node.MakeSubTree(Node(';', TokenType.SYMBOL), node.right, None, node)
+            return temp_node
+        else:
+            return None
+    elif node.value == "if":
+        evaluateExpression(node.left, output)
+        condition = Evaluator.getStackValue()
+        if condition > 0: 
+            return node.middle
+        else:
+            return node.right
+
+    elif node.value == "skip":
+        return None
+
+    
+def getIndentifier(target, output):
+    if target not in Evaluator.memory: raiseError(f"NameError => name '{target}' is not defined", output)   
+    return Evaluator.memory[target]     
+
+def checkStack(output):
+    if len(Evaluator.stack) < 3: return
+    
+    tempArr = Evaluator.stack[-3:]
     if tempArr[0].type != TokenType.SYMBOL: return
-    elif tempArr[1].type != TokenType.NUMBER or tempArr[2].type != TokenType.NUMBER: return
+    elif ((tempArr[1].type != TokenType.NUMBER and tempArr[1].type != TokenType.INDENTIFIER) or
+          (tempArr[2].type != TokenType.NUMBER and tempArr[2].type != TokenType.INDENTIFIER)): return
+    
+    val1, val2 = 0, 0
+    match (tempArr[1].type, tempArr[2].type):
+        case (TokenType.NUMBER, TokenType.NUMBER): val1, val2 = tempArr[1].value, tempArr[2].value
+        case (TokenType.NUMBER, TokenType.INDENTIFIER): val1, val2 = tempArr[1].value, getIndentifier(tempArr[2].value, output)
+        case (TokenType.INDENTIFIER, TokenType.NUMBER): val1, val2 = getIndentifier(tempArr[1].value, output), tempArr[2].value
+        case (TokenType.INDENTIFIER, TokenType.INDENTIFIER): val1, val2 = getIndentifier(tempArr[1].value, output), getIndentifier(tempArr[2].value, output)
+
+    
     
     if tempArr[0].value == '+':
-       EvaluatorStack.stack[-3] = Node(tempArr[1].value + tempArr[2].value, TokenType.NUMBER)
+       Evaluator.stack[-3] = Node(val1 + val2, TokenType.NUMBER)
     elif tempArr[0].value == '-':
-        EvaluatorStack.stack[-3] = Node(max(tempArr[1].value - tempArr[2].value, 0), TokenType.NUMBER)
+        Evaluator.stack[-3] = Node(max(val1 - val2, 0), TokenType.NUMBER)
     elif tempArr[0].value == '*':
-        EvaluatorStack.stack[-3] = Node(tempArr[1].value * tempArr[2].value, TokenType.NUMBER)
+        Evaluator.stack[-3] = Node(val1 * val2, TokenType.NUMBER)
     elif tempArr[0].value == '/':
-        if tempArr[2].value == 0: raiseError("ZeroDivisionError => division by zero")
-        EvaluatorStack.stack[-3] = Node(tempArr[1].value // tempArr[2].value, TokenType.NUMBER)
-    else:
-        raiseError("Invalid operator")
+        if val2 == 0: raiseError("ZeroDivisionError => division by zero", output)
+        Evaluator.stack[-3] = Node(val1 // val2, TokenType.NUMBER)
     
-    EvaluatorStack.stack = EvaluatorStack.stack[:-2]
+    Evaluator.stack.pop()
+    Evaluator.stack.pop()
     
     
-def preorderTraverse(node):
+def evaluateExpression(node, output):
     """Evaluate the operands of a single node"""
     if node is None:
         return
     else:
         # operator node
-        EvaluatorStack.stack.append(node)
-        preorderTraverse(node.left)
-        preorderTraverse(node.right)
-        if node.type == TokenType.SYMBOL: checkStack()
+        Evaluator.stack.append(node)
+        evaluateExpression(node.left, output)
+        evaluateExpression(node.right, output)
+        if node.type == TokenType.SYMBOL: checkStack(output)
+
+
+def outputMemory(output):
+    output.write("\nOutput: ")
+    for i in Evaluator.memory:
+        output.write(f"\n{i} = {Evaluator.memory[i]}")
+        
+
+def evaluateAST(node, output):
+    if node == None:
+        output.write(f"Output: {node}")
         return
 
+    Evaluator()
+    Evaluator.AST = node
+    while Evaluator.AST != None:    
+        Evaluator.AST = evaluateFullLanguage(Evaluator.AST, output)
+    outputMemory(output)
+    # output.write(f"Output: {Evaluator.stack[0].value}")
 
-def evaluate(node):
-    EvaluatorStack()
-    preorderTraverse(node)
-    return EvaluatorStack.stack
 
-def raiseError(e):
-    print(f"SyntaxError :: {e}")
+# def evaluateAST(node, output):
+#     if node == None:
+#         output.write(f"Output: {node}")
+#         return
+
+#     EvaluatorStack()
+#     evaluateExpression(node, output)
+#     output.write(f"Output: {EvaluatorStack.stack[0].value}")
+    
+def raiseError(e, output):
+    output.write(f"SemanticError :: {e}")
+    quit(0)
