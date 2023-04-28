@@ -30,11 +30,11 @@ def ArgParser():
     argParser.add_argument("-o", "--output", help="Output File")
     args = argParser.parse_args()
 
-    input = open(args.input, "r")
-    output = open(args.output, "a")
+    # input = open(args.input, "r")
+    # output = open(args.output, "a")
 
-    # input = open("input_file.txt", "r")
-    # output = open("out.txt", "a")
+    input = open("input_file.txt", "r")
+    output = open("out.txt", "a")
     
     main(input, output)
      

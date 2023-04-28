@@ -1,356 +1,42 @@
 Tokens:
-z : INDENTIFIER
-:= : SYMBOL
-1 : NUMBER
-
-AST:
-:= : SYMBOL
-	z : INDENTIFIER
-	1 : NUMBER
-
-Output: z = 1
-
-
-Tokens:
-x : INDENTIFIER
+isBuffed : INDENTIFIER
 := : SYMBOL
 1 : NUMBER
 ; : SYMBOL
-y : INDENTIFIER
+buffDuration : INDENTIFIER
 := : SYMBOL
-2 : NUMBER
-+ : SYMBOL
-3 : NUMBER
-
-AST:
+50 : NUMBER
 ; : SYMBOL
-	:= : SYMBOL
-		x : INDENTIFIER
-		1 : NUMBER
-	:= : SYMBOL
-		y : INDENTIFIER
-		+ : SYMBOL
-			2 : NUMBER
-			3 : NUMBER
-
-Output: 
-x = 1
-y = 5
-
-Tokens:
-c4 : INDENTIFIER
+dmgMultipllier : INDENTIFIER
 := : SYMBOL
-2 : NUMBER
-* : SYMBOL
 3 : NUMBER
-/ : SYMBOL
-5 : NUMBER
-+ : SYMBOL
-6 : NUMBER
 ; : SYMBOL
-if : KEYWORD
-4 : NUMBER
-- : SYMBOL
-2 : NUMBER
-then : KEYWORD
-skip : KEYWORD
-else : KEYWORD
-skip : KEYWORD
-endif : KEYWORD
-
-AST:
-; : SYMBOL
-	:= : SYMBOL
-		c4 : INDENTIFIER
-		+ : SYMBOL
-			/ : SYMBOL
-				* : SYMBOL
-					2 : NUMBER
-					3 : NUMBER
-				5 : NUMBER
-			6 : NUMBER
-	if : KEYWORD
-		- : SYMBOL
-			4 : NUMBER
-			2 : NUMBER
-		skip : KEYWORD
-		skip : KEYWORD
-
-Output: 
-c4 = 7
-
-Tokens:
-c4 : INDENTIFIER
+attack : INDENTIFIER
 := : SYMBOL
-2 : NUMBER
-* : SYMBOL
-3 : NUMBER
-/ : SYMBOL
-5 : NUMBER
-+ : SYMBOL
-6 : NUMBER
+15 : NUMBER
 ; : SYMBOL
-if : KEYWORD
-4 : NUMBER
-- : SYMBOL
-2 : NUMBER
-then : KEYWORD
-c4 : INDENTIFIER
-:= : SYMBOL
-0 : NUMBER
-else : KEYWORD
-skip : KEYWORD
-endif : KEYWORD
-
-AST:
-; : SYMBOL
-	:= : SYMBOL
-		c4 : INDENTIFIER
-		+ : SYMBOL
-			/ : SYMBOL
-				* : SYMBOL
-					2 : NUMBER
-					3 : NUMBER
-				5 : NUMBER
-			6 : NUMBER
-	if : KEYWORD
-		- : SYMBOL
-			4 : NUMBER
-			2 : NUMBER
-		:= : SYMBOL
-			c4 : INDENTIFIER
-			0 : NUMBER
-		skip : KEYWORD
-
-Output: 
-c4 = 0
-
-Tokens:
-c4 : INDENTIFIER
-:= : SYMBOL
-2 : NUMBER
-* : SYMBOL
-3 : NUMBER
-/ : SYMBOL
-5 : NUMBER
-+ : SYMBOL
-6 : NUMBER
-; : SYMBOL
-if : KEYWORD
-3 : NUMBER
-- : SYMBOL
-2 : NUMBER
-then : KEYWORD
-c4 : INDENTIFIER
+buffRate : INDENTIFIER
 := : SYMBOL
 1 : NUMBER
-else : KEYWORD
-c4 : INDENTIFIER
-:= : SYMBOL
-0 : NUMBER
-endif : KEYWORD
-
-AST:
-; : SYMBOL
-	:= : SYMBOL
-		c4 : INDENTIFIER
-		+ : SYMBOL
-			/ : SYMBOL
-				* : SYMBOL
-					2 : NUMBER
-					3 : NUMBER
-				5 : NUMBER
-			6 : NUMBER
-	if : KEYWORD
-		- : SYMBOL
-			3 : NUMBER
-			2 : NUMBER
-		:= : SYMBOL
-			c4 : INDENTIFIER
-			1 : NUMBER
-		:= : SYMBOL
-			c4 : INDENTIFIER
-			0 : NUMBER
-
-Output: 
-c4 = 1
-
-Tokens:
-c4 : INDENTIFIER
-:= : SYMBOL
-2 : NUMBER
-* : SYMBOL
-3 : NUMBER
-/ : SYMBOL
-5 : NUMBER
-+ : SYMBOL
-6 : NUMBER
 ; : SYMBOL
 if : KEYWORD
-3 : NUMBER
-- : SYMBOL
-2 : NUMBER
+isBuffed : INDENTIFIER
 then : KEYWORD
-c4 : INDENTIFIER
-:= : SYMBOL
-c5 : INDENTIFIER
-+ : SYMBOL
-1 : NUMBER
-else : KEYWORD
-c4 : INDENTIFIER
-:= : SYMBOL
-0 : NUMBER
-endif : KEYWORD
-
-AST:
-; : SYMBOL
-	:= : SYMBOL
-		c4 : INDENTIFIER
-		+ : SYMBOL
-			/ : SYMBOL
-				* : SYMBOL
-					2 : NUMBER
-					3 : NUMBER
-				5 : NUMBER
-			6 : NUMBER
-	if : KEYWORD
-		- : SYMBOL
-			3 : NUMBER
-			2 : NUMBER
-		:= : SYMBOL
-			c4 : INDENTIFIER
-			+ : SYMBOL
-				c5 : INDENTIFIER
-				1 : NUMBER
-		:= : SYMBOL
-			c4 : INDENTIFIER
-			0 : NUMBER
-SemanticError :: NameError => name 'c5' is not defined
-
-
-Tokens:
-if : KEYWORD
-5 : NUMBER
-then : KEYWORD
-if : KEYWORD
-1 : NUMBER
-- : SYMBOL
-2 : NUMBER
-then : KEYWORD
-x : INDENTIFIER
-:= : SYMBOL
-5 : NUMBER
-else : KEYWORD
-x : INDENTIFIER
-:= : SYMBOL
-6 : NUMBER
-endif : KEYWORD
-else : KEYWORD
-t : INDENTIFIER
-:= : SYMBOL
-4 : NUMBER
-- : SYMBOL
-3 : NUMBER
-endif : KEYWORD
-
-AST:
-if : KEYWORD
-	5 : NUMBER
-	if : KEYWORD
-		- : SYMBOL
-			1 : NUMBER
-			2 : NUMBER
-		:= : SYMBOL
-			x : INDENTIFIER
-			5 : NUMBER
-		:= : SYMBOL
-			x : INDENTIFIER
-			6 : NUMBER
-	:= : SYMBOL
-		t : INDENTIFIER
-		- : SYMBOL
-			4 : NUMBER
-			3 : NUMBER
-
-Output: 
-x = 6Tokens:
 while : KEYWORD
-5 : NUMBER
+buffDuration : INDENTIFIER
 do : KEYWORD
-skip : KEYWORD
-endwhile : KEYWORD
-
-AST:
-while : KEYWORD
-	5 : NUMBER
-	skip : KEYWORD
-Tokens:
-x : INDENTIFIER
+attack : INDENTIFIER
 := : SYMBOL
-0 : NUMBER
+attack : INDENTIFIER
+* : SYMBOL
+dmgMultipllier : INDENTIFIER
 ; : SYMBOL
-while : KEYWORD
-3 : NUMBER
-- : SYMBOL
-x : INDENTIFIER
-do : KEYWORD
-x : INDENTIFIER
+buffDuration : INDENTIFIER
 := : SYMBOL
-x : INDENTIFIER
-+ : SYMBOL
+buffDuration : INDENTIFIER
+- : SYMBOL
 1 : NUMBER
 endwhile : KEYWORD
-
-AST:
-; : SYMBOL
-	:= : SYMBOL
-		x : INDENTIFIER
-		0 : NUMBER
-	while : KEYWORD
-		- : SYMBOL
-			3 : NUMBER
-			x : INDENTIFIER
-		:= : SYMBOL
-			x : INDENTIFIER
-			+ : SYMBOL
-				x : INDENTIFIER
-				1 : NUMBER
-
-Output: 
-x = 3
-
-
-
-
-Tokens:
-x : INDENTIFIER
-:= : SYMBOL
-0 : NUMBER
-; : SYMBOL
-while : KEYWORD
-3 : NUMBER
-- : SYMBOL
-x : INDENTIFIER
-do : KEYWORD
-x : INDENTIFIER
-:= : SYMBOL
-x : INDENTIFIER
-+ : SYMBOL
-1 : NUMBER
-endwhile : KEYWORD
-; : SYMBOL
-if : KEYWORD
-x : INDENTIFIER
-- : SYMBOL
-0 : NUMBER
-then : KEYWORD
-y : INDENTIFIER
-:= : SYMBOL
-5 : NUMBER
-+ : SYMBOL
-3 : NUMBER
-* : SYMBOL
-2 : NUMBER
 else : KEYWORD
 skip : KEYWORD
 endif : KEYWORD
@@ -358,75 +44,44 @@ endif : KEYWORD
 AST:
 ; : SYMBOL
 	; : SYMBOL
-		:= : SYMBOL
-			x : INDENTIFIER
-			0 : NUMBER
-		while : KEYWORD
-			- : SYMBOL
-				3 : NUMBER
-				x : INDENTIFIER
+		; : SYMBOL
+			; : SYMBOL
+				; : SYMBOL
+					:= : SYMBOL
+						isBuffed : INDENTIFIER
+						1 : NUMBER
+					:= : SYMBOL
+						buffDuration : INDENTIFIER
+						50 : NUMBER
+				:= : SYMBOL
+					dmgMultipllier : INDENTIFIER
+					3 : NUMBER
 			:= : SYMBOL
-				x : INDENTIFIER
-				+ : SYMBOL
-					x : INDENTIFIER
-					1 : NUMBER
-	if : KEYWORD
-		- : SYMBOL
-			x : INDENTIFIER
-			0 : NUMBER
+				attack : INDENTIFIER
+				15 : NUMBER
 		:= : SYMBOL
-			y : INDENTIFIER
-			+ : SYMBOL
-				5 : NUMBER
-				* : SYMBOL
-					3 : NUMBER
-					2 : NUMBER
+			buffRate : INDENTIFIER
+			1 : NUMBER
+	if : KEYWORD
+		isBuffed : INDENTIFIER
+		while : KEYWORD
+			buffDuration : INDENTIFIER
+			; : SYMBOL
+				:= : SYMBOL
+					attack : INDENTIFIER
+					* : SYMBOL
+						attack : INDENTIFIER
+						dmgMultipllier : INDENTIFIER
+				:= : SYMBOL
+					buffDuration : INDENTIFIER
+					- : SYMBOL
+						buffDuration : INDENTIFIER
+						1 : NUMBER
 		skip : KEYWORD
 
 Output: 
-x = 3
-y = 11
-
-Tokens:
-x : INDENTIFIER
-:= : SYMBOL
-3 : NUMBER
-; : SYMBOL
-y : INDENTIFIER
-:= : SYMBOL
-1 : NUMBER
-; : SYMBOL
-while : KEYWORD
-x : INDENTIFIER
-- : SYMBOL
-y : INDENTIFIER
-do : KEYWORD
-y : INDENTIFIER
-:= : SYMBOL
-y : INDENTIFIER
-+ : SYMBOL
-1 : NUMBER
-endwhile : KEYWORD
-
-AST:
-; : SYMBOL
-	; : SYMBOL
-		:= : SYMBOL
-			x : INDENTIFIER
-			3 : NUMBER
-		:= : SYMBOL
-			y : INDENTIFIER
-			1 : NUMBER
-	while : KEYWORD
-		- : SYMBOL
-			x : INDENTIFIER
-			y : INDENTIFIER
-		:= : SYMBOL
-			y : INDENTIFIER
-			+ : SYMBOL
-				y : INDENTIFIER
-				1 : NUMBER
-
-Output: 
-x = 3
-y = 3
+isBuffed = 1
+buffDuration = 0
+dmgMultipllier = 3
+attack = 10768469815377788831553735
+buffRate = 1

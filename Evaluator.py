@@ -13,7 +13,7 @@ class Evaluator:
         Evaluator.AST = None
         
     def clearStack():
-        Evaluator.stack = []
+        Evaluator.stack.clear()
 
     def clearMemory():
         Evaluator.memory.clear()
@@ -26,9 +26,10 @@ class Evaluator:
         Evaluator.memory.clear()
         Evaluator.AST = None
 
-    def getStackValue():
+    def getStackValue(output):
         if len(Evaluator.stack) != 1: return 0 
-        val = Evaluator.stack[0].value
+        node = Evaluator.stack[0]
+        val = getIndentifier(node.value, output) if node.type == TokenType.INDENTIFIER else node.value
         Evaluator.clearStack()
         return val
         
@@ -68,18 +69,18 @@ def evaluateFullLanguage(node, output):
             return temp_node
     elif node.value == ":=":
         evaluateExpression(node.right, output)
-        Evaluator.memory[node.left.value] = Evaluator.getStackValue()
+        Evaluator.memory[node.left.value] = Evaluator.getStackValue(output)
         return None
     elif node.value == "while":
         evaluateExpression(node.left, output)
-        if Evaluator.getStackValue() > 0:
+        if Evaluator.getStackValue(output) > 0:
             temp_node = Node.MakeSubTree(Node(';', TokenType.SYMBOL), node.right, None, node)
             return temp_node
         else:
             return None
     elif node.value == "if":
         evaluateExpression(node.left, output)
-        condition = Evaluator.getStackValue()
+        condition = Evaluator.getStackValue(output)
         if condition > 0: 
             return node.middle
         else:
