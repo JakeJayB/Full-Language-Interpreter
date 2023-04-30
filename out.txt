@@ -85,3 +85,52 @@ buffDuration = 0
 dmgMultipllier = 3
 attack = 10768469815377788831553735
 buffRate = 1
+
+
+Tokens:
+isBuffed : INDENTIFIER
+:= : SYMBOL
+1 : NUMBER
+; : SYMBOL
+buffDuration : INDENTIFIER
+:= : SYMBOL
+50 : NUMBER
+; : SYMBOL
+dmgMultipllier : INDENTIFIER
+:= : SYMBOL
+3 : NUMBER
+; : SYMBOL
+attack : INDENTIFIER
+:= : SYMBOL
+15 : NUMBER
+; : SYMBOL
+buffRate : INDENTIFIER
+:= : SYMBOL
+1 : NUMBER
+; : SYMBOL
+switch : INDENTIFIER
+3 : NUMBER
+; : SYMBOL
+if : KEYWORD
+isBuffed : INDENTIFIER
+then : KEYWORD
+while : KEYWORD
+buffDuration : INDENTIFIER
+do : KEYWORD
+attack : INDENTIFIER
+:= : SYMBOL
+attack : INDENTIFIER
+* : SYMBOL
+dmgMultipllier : INDENTIFIER
+; : SYMBOL
+buffDuration : INDENTIFIER
+:= : SYMBOL
+buffDuration : INDENTIFIER
+- : SYMBOL
+1 : NUMBER
+endwhile : KEYWORD
+else : KEYWORD
+skip : KEYWORD
+endif : KEYWORD
+
+SyntaxError :: Parsing Exception => EXPECTING ':='

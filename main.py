@@ -1,11 +1,10 @@
 """ Jacob Bejarano,  Wesly Barayuga
-    Project Phase 3.1 - Parser for Expressions
-    04/04/23
+    Project Phase 3.2 - Evaluator for Full Language
+    04/30/23
 """
 
 import argparse
 import Parser
-# import Evaluator
 import Evaluator
 
 def main(input, output):
@@ -30,11 +29,11 @@ def ArgParser():
     argParser.add_argument("-o", "--output", help="Output File")
     args = argParser.parse_args()
 
-    # input = open(args.input, "r")
-    # output = open(args.output, "a")
+    input = open(args.input, "r")
+    output = open(args.output, "a")
 
-    input = open("input_file.txt", "r")
-    output = open("out.txt", "a")
+    # input = open("input_file.txt", "r")
+    # output = open("out.txt", "a")
     
     main(input, output)
      

@@ -1,6 +1,6 @@
 """ Jacob Bejarano,  Wesly Barayuga
-    Project Phase 3.1 - Parser for Expressions
-    04/04/23
+    Project Phase 3.2 - Evaluator for Full Language
+    04/30/23
 """
 from Scanner import TokenType
 from Parser import Node
@@ -143,6 +143,7 @@ def outputMemory(output):
         output.write(f"\n{i} = {Evaluator.memory[i]}")
         
 
+# for Phase 3.2 - Evaluator for Full Language
 def evaluateAST(node, output):
     if node == None:
         output.write(f"Output: {node}")
@@ -153,9 +154,9 @@ def evaluateAST(node, output):
     while Evaluator.AST != None:    
         Evaluator.AST = evaluateFullLanguage(Evaluator.AST, output)
     outputMemory(output)
-    # output.write(f"Output: {Evaluator.stack[0].value}")
 
 
+# for Phase 3.1 - Evaluator for Expressions
 # def evaluateAST(node, output):
 #     if node == None:
 #         output.write(f"Output: {node}")

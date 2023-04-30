@@ -18,17 +18,6 @@ class Node():
         root.middle = middle
         root.right = right
         return root 
-
-# class Tree():
-#     def __init__(self, root) -> None:
-#         self.root = root
-    
-#     def MakeSubTree(root, left=None, middle=None, right=None):
-#         root = Node(root.value, root.type)
-#         root.left = left
-#         root.middle = middle
-#         root.right = right
-#         return root
     
 # Counter.val acts as our 'i' for accessing elements in token array
 class Counter():
@@ -46,7 +35,6 @@ def printTree(node, output, whitespace=''):
     printTree(node.middle, output, whitespace+'\t')
     printTree(node.right, output, whitespace+'\t')
 
-# when error occurs, raiseError() is called
 def raiseError(token, output):
     '''when error occurs, raiseError() is called'''
     
