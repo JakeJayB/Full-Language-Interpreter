@@ -1,6 +1,0 @@
-How to run file:
-    the file that is used for execution is "main.py". To run the file
-    type 'python3 main.py -i "nameOfInputFile.txt" -o "nameOfInputFile.txt"' in terminal
-
-    example: python3 main.py -i input_file.txt -o output_file.txt
-

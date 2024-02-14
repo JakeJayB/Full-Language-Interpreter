@@ -29,7 +29,7 @@ class Evaluator:
     def getStackValue(output):
         if len(Evaluator.stack) != 1: return 0 
         node = Evaluator.stack[0]
-        val = getIndentifier(node.value, output) if node.type == TokenType.INDENTIFIER else node.value
+        val = getIndentifier(node, output)
         Evaluator.clearStack()
         return val
         
@@ -91,35 +91,40 @@ def evaluateFullLanguage(node, output):
 
     
 def getIndentifier(target, output):
-    if target not in Evaluator.memory: raiseError(f"NameError => name '{target}' is not defined", output)   
-    return Evaluator.memory[target]     
+    if target.type == TokenType.NUMBER: return target.value
+    
+    id = target.value
+    if id not in Evaluator.memory: raiseError(f"NameError => name '{id}' is not defined", output)   
+    return Evaluator.memory[id]     
+
 
 def checkStack(output):
     if len(Evaluator.stack) < 3: return
     
+    # in the form: [SYMBOL, ID, ID]
     tempArr = Evaluator.stack[-3:]
-    if tempArr[0].type != TokenType.SYMBOL: return
+    
+    # if array is not in the form above
+    if tempArr[0].type != TokenType.SYMBOL: 
+        return
     elif ((tempArr[1].type != TokenType.NUMBER and tempArr[1].type != TokenType.INDENTIFIER) or
-          (tempArr[2].type != TokenType.NUMBER and tempArr[2].type != TokenType.INDENTIFIER)): return
-    
-    val1, val2 = 0, 0
-    match (tempArr[1].type, tempArr[2].type):
-        case (TokenType.NUMBER, TokenType.NUMBER): val1, val2 = tempArr[1].value, tempArr[2].value
-        case (TokenType.NUMBER, TokenType.INDENTIFIER): val1, val2 = tempArr[1].value, getIndentifier(tempArr[2].value, output)
-        case (TokenType.INDENTIFIER, TokenType.NUMBER): val1, val2 = getIndentifier(tempArr[1].value, output), tempArr[2].value
-        case (TokenType.INDENTIFIER, TokenType.INDENTIFIER): val1, val2 = getIndentifier(tempArr[1].value, output), getIndentifier(tempArr[2].value, output)
-
+          (tempArr[2].type != TokenType.NUMBER and tempArr[2].type != TokenType.INDENTIFIER)): 
+        return
     
     
-    if tempArr[0].value == '+':
-       Evaluator.stack[-3] = Node(val1 + val2, TokenType.NUMBER)
-    elif tempArr[0].value == '-':
-        Evaluator.stack[-3] = Node(max(val1 - val2, 0), TokenType.NUMBER)
-    elif tempArr[0].value == '*':
-        Evaluator.stack[-3] = Node(val1 * val2, TokenType.NUMBER)
-    elif tempArr[0].value == '/':
-        if val2 == 0: raiseError("ZeroDivisionError => division by zero", output)
-        Evaluator.stack[-3] = Node(val1 // val2, TokenType.NUMBER)
+    operand1, operand2 = getIndentifier(tempArr[1], output), getIndentifier(tempArr[2], output)
+    operator = tempArr[0].value
+    
+    # compute the arithmetic operation depending on the operator
+    if operator == '+':
+       Evaluator.stack[-3] = Node(operand1 + operand2, TokenType.NUMBER)
+    elif operator == '-':
+        Evaluator.stack[-3] = Node(max(operand1 - operand2, 0), TokenType.NUMBER)
+    elif operator == '*':
+        Evaluator.stack[-3] = Node(operand1 * operand2, TokenType.NUMBER)
+    elif operator == '/':
+        if operand2 == 0: raiseError("ZeroDivisionError => division by zero", output)
+        Evaluator.stack[-3] = Node(operand1 // operand2, TokenType.NUMBER)
     
     Evaluator.stack.pop()
     Evaluator.stack.pop()

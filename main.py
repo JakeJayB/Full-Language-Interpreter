@@ -12,7 +12,6 @@ def main(input, output):
     output.write("AST:\n")
     Parser.printTree(root, output)
     
-    # Evaluator.evaluateAST(root,output)
     Evaluator.evaluateAST(root, output)
     input.close()
     output.close()
